@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 
 describe("Given a Post component", () => {
   const post = {
-    imageUrl: "testUrl",
+    image: "testUrl",
     projectTitle: "testProjectTitle",
     shortDescription: "testShortDescription",
     stack: "testStack",

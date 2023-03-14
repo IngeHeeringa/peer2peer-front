@@ -1,17 +1,11 @@
 export interface Post {
-  imageUrl: string;
+  image: string;
   projectTitle: string;
   shortDescription: string;
   fullDescription: string;
-  stack: Stack;
+  stack: string;
   technologies: string[];
   yearsOfExperience: string;
-}
-
-export enum Stack {
-  frontEnd,
-  backEnd,
-  fullStack,
 }
 
 export type Posts = Post[];

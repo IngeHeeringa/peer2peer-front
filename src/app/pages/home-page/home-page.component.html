@@ -10,3 +10,6 @@
     <a class="hero-section__cta" (click)="logoutUser()" routerLink="/" *ngIf="isLogged$ | async">Log out</a>
   </div>
 </section>
+<main>
+  <app-posts></app-posts>
+</main>
