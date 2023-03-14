@@ -1,19 +1,24 @@
 <article class="post">
-  <img src={{post.imageUrl}} alt="" class="post__image">
-  <h3 class="post__title">{{post.projectTitle}}</h3>
-  <div class="post__info">
-    <span>Wants to build</span>
-    <span>{{post.shortDescription}}</span>
+  <div class="gradient-overlay">
+    <img src={{post.imageUrl}} alt="" class="post__image">
   </div>
-  <div class="post__info">
-    <span>Stack</span>
-    <span>{{post.stack}}</span>
-  </div>
-  <div class="post__info">
-    <span>Experience</span>
-    <span>{{post.yearsOfExperience}}</span>
-  </div>
-  <div class="post__technologies">
-    {{post.technologies}}
+  <div class="post__body">
+    <h3 class="post__project-title">{{post.projectTitle}}</h3>
+    <div class="post__info info">
+      <span class="info__label">Wants to build</span>
+      <span class="info__data">{{post.shortDescription}}</span>
+    </div>
+    <div class="post__info info">
+      <span class="info__label">Stack</span>
+      <span class="info__data">{{post.stack}}</span>
+    </div>
+    <div class="post__info info">
+      <span class="info__label">Experience</span>
+      <span class="info__data">{{post.yearsOfExperience}}</span>
+    </div>
+    <div class="post__technologies technologies">
+      <span *ngFor="let technology of post.technologies"
+        [className]="'technologies__technology' + ' ' + technology">{{technology}}</span>
+    </div>
   </div>
 </article>
