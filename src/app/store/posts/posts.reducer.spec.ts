@@ -9,7 +9,7 @@ describe("Given a Posts Reducer function", () => {
       const posts: Posts = [
         {
           projectTitle: "Mock Project",
-          image: "url",
+          imageUrl: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
           stack: Stack.fullStack,
@@ -18,7 +18,7 @@ describe("Given a Posts Reducer function", () => {
         },
         {
           projectTitle: "Test Project",
-          image: "url",
+          imageUrl: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
           stack: Stack.backEnd,
@@ -29,7 +29,7 @@ describe("Given a Posts Reducer function", () => {
       const expectedPostsState: Posts = [
         {
           projectTitle: "Mock Project",
-          image: "url",
+          imageUrl: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
           stack: Stack.fullStack,
@@ -38,7 +38,7 @@ describe("Given a Posts Reducer function", () => {
         },
         {
           projectTitle: "Test Project",
-          image: "url",
+          imageUrl: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
           stack: Stack.backEnd,

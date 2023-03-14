@@ -21,6 +21,7 @@ import { RegisterFormComponent } from "./components/register-form/register-form.
 import { RegisterPageComponent } from "./pages/register-page/register-page.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { PostsModule } from "./store/posts/posts.module";
+import { PostComponent } from "./components/post/post.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { PostsModule } from "./store/posts/posts.module";
     RegisterFormComponent,
     RegisterPageComponent,
     HeaderComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,
