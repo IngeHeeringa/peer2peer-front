@@ -13,7 +13,7 @@ import { UserService } from "./services/user/user.service";
 import { selectIsLoading } from "./store/ui/ui.reducer";
 import { selectIsLogged } from "./store/user/user.reducer";
 
-describe("Given an AppComponent", () => {
+describe("Given an App component", () => {
   describe("When rendered", () => {
     const isLoading$: Observable<boolean> = of(true);
     const isLogged$: Observable<boolean> = of(true);

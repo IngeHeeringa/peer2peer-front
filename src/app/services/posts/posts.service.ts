@@ -1,8 +1,8 @@
 import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { catchError, throwError, type Observable } from "rxjs";
+import { catchError, map, throwError, type Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
-import { type Posts } from "../../store/posts/types";
+import { Post, type ApiResponse, type Posts } from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
 
 @Injectable({
@@ -16,9 +16,9 @@ export class PostsService {
     @Inject(UiService) private readonly uiService: UiService
   ) {}
 
-  loadPosts(): Observable<Posts> {
+  loadPosts(): Observable<ApiResponse> {
     return this.http
-      .get<Posts>(this.postsUrl)
+      .get<ApiResponse>(this.postsUrl)
       .pipe(
         catchError((error) =>
           this.handleError(error as HttpErrorResponse, this.uiService)

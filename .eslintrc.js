@@ -23,7 +23,15 @@ module.exports = {
   rules: {
     "new-cap": [
       "error",
-      { capIsNewExceptions: ["NgModule", "Component", "Injectable", "Inject"] },
+      {
+        capIsNewExceptions: [
+          "NgModule",
+          "Component",
+          "Injectable",
+          "Inject",
+          "Input",
+        ],
+      },
     ],
   },
 };

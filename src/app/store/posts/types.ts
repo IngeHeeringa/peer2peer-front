@@ -1,6 +1,6 @@
 export interface Post {
+  imageUrl: string;
   projectTitle: string;
-  image: string;
   shortDescription: string;
   fullDescription: string;
   stack: Stack;
@@ -15,3 +15,7 @@ export enum Stack {
 }
 
 export type Posts = Post[];
+
+export interface ApiResponse {
+  posts: Posts;
+}

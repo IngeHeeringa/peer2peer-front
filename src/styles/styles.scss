@@ -2,6 +2,8 @@
 
 @import "../../node_modules/@fontsource/reem-kufi/index.css";
 @import "../../node_modules/@fontsource/quicksand/index.css";
+@import "../../node_modules/@fontsource/quicksand/300.css";
+@import "../../node_modules/@fontsource/quicksand/700.css";
 @import "~material-icons/iconfont/material-icons.css";
 
 *,
@@ -19,7 +21,8 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3 {
   margin: 0;
   font-family: variables.$display-font;
   font-weight: normal;
