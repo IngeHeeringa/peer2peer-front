@@ -62,25 +62,27 @@ describe("Given a User Service", () => {
     });
   });
 
-  describe("When an HttpErrorResponse with an error field is thrown", () => {
-    test("Then it should call the showErrorModal method of the uiService", () => {
-      const mockError = { error: { error: "mockError" } };
-      const spy = jest.spyOn(uiService, "showErrorModal");
+  describe("When its getToken method is invoked and fails", () => {
+    test("Then it should call its handleError method", () => {
+      const credentials = {
+        email: "test@example.com",
+        password: "password123",
+      };
 
-      userService.handleError(mockError as HttpErrorResponse, uiService);
-      expect(spy).toHaveBeenCalledWith(mockError.error.error);
+      const spy = jest.spyOn(userService, "handleError");
 
-      spy.mockRestore();
-    });
-  });
+      const errorEvent = new ErrorEvent("error");
 
-  describe("When an HttpErrorResponse with a message field is thrown", () => {
-    test("Then it should call the showErrorModal method of the uiService", () => {
-      const mockError = { error: "error", message: "mockError" };
-      const spy = jest.spyOn(uiService, "showErrorModal");
+      userService.getToken(credentials).subscribe({
+        error() {
+          expect(spy).toHaveBeenCalled();
+          spy.mockRestore();
+        },
+      });
 
-      userService.handleError(mockError as HttpErrorResponse, uiService);
-      expect(spy).toHaveBeenCalledWith(mockError.message);
+      const req = httpMock.expectOne(`${userService.userLoginEndpoint}`);
+
+      req.error(errorEvent);
 
       spy.mockRestore();
     });
@@ -107,6 +109,33 @@ describe("Given a User Service", () => {
     });
   });
 
+  describe("When its register method is invoked and fails", () => {
+    test("Then it should call its handleError method", () => {
+      const registerData = {
+        username: "testuser",
+        email: "test@example.com",
+        password: "password123",
+      };
+
+      const spy = jest.spyOn(userService, "handleError");
+
+      const errorEvent = new ProgressEvent("error");
+
+      userService.register(registerData).subscribe({
+        error() {
+          expect(spy).toHaveBeenCalled();
+          spy.mockRestore();
+        },
+      });
+
+      const req = httpMock.expectOne(`${userService.userRegisterEndpoint}`);
+
+      req.error(errorEvent);
+
+      spy.mockRestore();
+    });
+  });
+
   describe("When its login method is invoked with an email and a token", () => {
     test("Then dispatch should be invoked with a Login User action", () => {
       const data = {
@@ -126,6 +155,30 @@ describe("Given a User Service", () => {
       userService.logout();
 
       expect(mockStore.dispatch).toHaveBeenCalled();
+    });
+  });
+
+  describe("When an HttpErrorResponse with an error field is thrown", () => {
+    test("Then it should call the showErrorModal method of the uiService", () => {
+      const mockError = { error: { error: "mockError" } };
+      const spy = jest.spyOn(uiService, "showErrorModal");
+
+      userService.handleError(mockError as HttpErrorResponse, uiService);
+      expect(spy).toHaveBeenCalledWith(mockError.error.error);
+
+      spy.mockRestore();
+    });
+  });
+
+  describe("When an HttpErrorResponse with a message field is thrown", () => {
+    test("Then it should call the showErrorModal method of the uiService", () => {
+      const mockError = { error: "error", message: "mockError" };
+      const spy = jest.spyOn(uiService, "showErrorModal");
+
+      userService.handleError(mockError as HttpErrorResponse, uiService);
+      expect(spy).toHaveBeenCalledWith(mockError.message);
+
+      spy.mockRestore();
     });
   });
 });

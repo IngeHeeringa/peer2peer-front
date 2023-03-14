@@ -19,6 +19,8 @@ describe("Given an App component", () => {
     const isLogged$: Observable<boolean> = of(true);
     const mockUiService = {
       getIsLoading: jest.fn(() => isLoading$),
+      showLoading: jest.fn(),
+      hideLoading: jest.fn(),
     };
     const mockUserService = {
       getIsLogged: jest.fn(() => isLogged$),
