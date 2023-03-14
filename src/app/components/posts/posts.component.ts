@@ -1,5 +1,5 @@
 import { Component, Inject } from "@angular/core";
-import { map, type Observable } from "rxjs";
+import { type Observable } from "rxjs";
 import { PostsService } from "../../services/posts/posts.service";
 import { type Posts } from "../../store/posts/types";
 
@@ -9,19 +9,15 @@ import { type Posts } from "../../store/posts/types";
   styleUrls: ["./posts.component.scss"],
 })
 export class PostsComponent {
-  posts$: Observable<Posts> = this.getPosts();
+  posts$!: Observable<Posts>;
 
   constructor(
     @Inject(PostsService) private readonly postsService: PostsService
   ) {}
 
   ngOnInit(): void {
-    this.getPosts();
-  }
+    this.posts$ = this.postsService.getPosts();
 
-  getPosts() {
-    return this.postsService
-      .loadPosts()
-      .pipe(map((response) => response.posts));
+    this.postsService.loadPosts();
   }
 }
