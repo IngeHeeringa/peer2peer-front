@@ -1,5 +1,4 @@
 import { type ComponentFixture, TestBed } from "@angular/core/testing";
-
 import { PostsComponent } from "./posts.component";
 
 describe.skip("PostsComponent", () => {
