@@ -10,13 +10,14 @@ import { Store } from "@ngrx/store";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { PostsService } from "./posts.service";
+import { loadPosts } from "../../store/posts/posts.actions";
 
 describe("Given a Posts Service", () => {
   let postsService: PostsService;
   let httpMock: HttpTestingController;
   let httpClient: HttpClient;
   let uiService: UiService;
-  const mockStore = createMockStore();
+  const store = createMockStore();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,11 +26,7 @@ describe("Given a Posts Service", () => {
         MatSnackBarModule,
         BrowserAnimationsModule,
       ],
-      providers: [
-        PostsService,
-        UiService,
-        { provide: Store, useValue: mockStore },
-      ],
+      providers: [PostsService, UiService, { provide: Store, useValue: store }],
     });
 
     postsService = TestBed.inject(PostsService);
@@ -42,18 +39,31 @@ describe("Given a Posts Service", () => {
     httpMock.verify();
   });
 
+  describe("When loadPosts method is invoked and succeeds", () => {
+    test("Then it should dispatch a loadPosts action with the posts payload", () => {
+      const mockApiResponse = {
+        posts: [],
+      };
+      const spy = jest.spyOn(store, "dispatch");
+
+      postsService.loadPosts();
+      const req = httpMock.expectOne(`${postsService.postsUrl}`);
+      req.flush(mockApiResponse);
+
+      expect(spy).toHaveBeenCalledWith(
+        loadPosts({ payload: mockApiResponse.posts })
+      );
+
+      spy.mockRestore();
+    });
+  });
+
   describe("When its loadPosts method is invoked", () => {
     test("Then it should make a GET request to the posts endpoint", () => {
-      const mockResponse = {};
-
-      postsService.loadPosts().subscribe((response) => {
-        expect(response).toEqual(mockResponse);
-      });
+      postsService.loadPosts();
 
       const req = httpMock.expectOne(`${postsService.postsUrl}`);
       expect(req.request.method).toEqual("GET");
-
-      req.flush(mockResponse);
     });
   });
 
@@ -76,6 +86,23 @@ describe("Given a Posts Service", () => {
 
       postsService.handleError(mockError as HttpErrorResponse, uiService);
       expect(spy).toHaveBeenCalledWith(mockError.message);
+
+      spy.mockRestore();
+    });
+  });
+
+  describe("When its loadPosts method is invoked and fails", () => {
+    test("Then it should call its handleError method", () => {
+      const errorEvent = new ProgressEvent("error");
+
+      const spy = jest.spyOn(postsService, "handleError");
+
+      postsService.loadPosts();
+
+      const req = httpMock.expectOne(`${postsService.postsUrl}`);
+      req.error(errorEvent);
+
+      expect(spy).toHaveBeenCalled();
 
       spy.mockRestore();
     });
