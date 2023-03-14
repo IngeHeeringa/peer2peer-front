@@ -11,7 +11,7 @@ export class PostComponent {
     projectTitle: "",
     shortDescription: "",
     stack: "",
-    technologies: [],
+    technologies: [""],
     yearsOfExperience: "",
   };
 }
