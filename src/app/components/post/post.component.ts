@@ -7,7 +7,7 @@ import { Component, Input } from "@angular/core";
 })
 export class PostComponent {
   @Input() post = {
-    imageUrl: "",
+    image: "",
     projectTitle: "",
     shortDescription: "",
     stack: "",

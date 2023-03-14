@@ -22,6 +22,7 @@ import { RegisterPageComponent } from "./pages/register-page/register-page.compo
 import { HeaderComponent } from "./components/header/header.component";
 import { PostsModule } from "./store/posts/posts.module";
 import { PostComponent } from "./components/post/post.component";
+import { PostsComponent } from "./components/posts/posts.component";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { PostComponent } from "./components/post/post.component";
     RegisterPageComponent,
     HeaderComponent,
     PostComponent,
+    PostsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { loadPosts } from "./posts.actions";
 import { reducer } from "./posts.reducer";
-import { Stack, type Posts } from "./types";
+import { type Posts } from "./types";
 
 describe("Given a Posts Reducer function", () => {
   describe("When it receives a list with two posts and a Load Posts action", () => {
@@ -9,19 +9,19 @@ describe("Given a Posts Reducer function", () => {
       const posts: Posts = [
         {
           projectTitle: "Mock Project",
-          imageUrl: "url",
+          image: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
-          stack: Stack.fullStack,
+          stack: "Mock Stack",
           technologies: ["Mock", "Test", "Fake"],
           yearsOfExperience: "<1 year",
         },
         {
           projectTitle: "Test Project",
-          imageUrl: "url",
+          image: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
-          stack: Stack.backEnd,
+          stack: "Mock Stack",
           technologies: ["Fake", "Test"],
           yearsOfExperience: "1-3 years",
         },
@@ -29,19 +29,19 @@ describe("Given a Posts Reducer function", () => {
       const expectedPostsState: Posts = [
         {
           projectTitle: "Mock Project",
-          imageUrl: "url",
+          image: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
-          stack: Stack.fullStack,
+          stack: "Mock Stack",
           technologies: ["Mock", "Test", "Fake"],
           yearsOfExperience: "<1 year",
         },
         {
           projectTitle: "Test Project",
-          imageUrl: "url",
+          image: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
-          stack: Stack.backEnd,
+          stack: "Mock Stack",
           technologies: ["Fake", "Test"],
           yearsOfExperience: "1-3 years",
         },

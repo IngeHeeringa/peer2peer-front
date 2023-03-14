@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 355px;
+  height: 100%;
   width: 312px;
   border-radius: 15px;
   background-color: map-get(variables.$primary-color, "main");
@@ -35,6 +35,7 @@
   border: 1px solid map-get(variables.$accent-color, "main");
   border-radius: 15px;
   position: relative;
+  height: 100%;
 
   &__project-title {
     font-size: 2rem;
@@ -88,5 +89,9 @@
 
   &__label {
     font-weight: 700;
+  }
+
+  &__data {
+    text-align: right;
   }
 }

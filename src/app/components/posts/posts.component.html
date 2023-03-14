@@ -1,0 +1,3 @@
+<ul class="posts">
+  <li *ngFor="let post of posts$ | async"><app-post [post]="post"></app-post></li>
+</ul>
