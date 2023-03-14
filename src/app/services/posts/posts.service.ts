@@ -1,8 +1,11 @@
 import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { catchError, map, throwError, type Observable } from "rxjs";
+import { Store } from "@ngrx/store";
+import { catchError, map, throwError } from "rxjs";
+import { loadPosts } from "../../store/posts/posts.actions";
+import { selectPostsState } from "../../store/posts/posts.reducer";
 import { environment } from "../../../environments/environment";
-import { Post, type ApiResponse, type Posts } from "../../store/posts/types";
+import { type ApiResponse } from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
 
 @Injectable({
@@ -13,17 +16,32 @@ export class PostsService {
 
   constructor(
     @Inject(HttpClient) private readonly http: HttpClient,
-    @Inject(UiService) private readonly uiService: UiService
+    @Inject(UiService) private readonly uiService: UiService,
+    @Inject(Store) private readonly store: Store
   ) {}
 
-  loadPosts(): Observable<ApiResponse> {
-    return this.http
+  loadPosts() {
+    this.uiService.showLoading();
+
+    const posts$ = this.http
       .get<ApiResponse>(this.postsUrl)
       .pipe(
         catchError((error) =>
           this.handleError(error as HttpErrorResponse, this.uiService)
         )
       );
+
+    posts$.subscribe((data: ApiResponse) => {
+      const { posts } = data;
+
+      this.store.dispatch(loadPosts({ payload: posts }));
+    });
+
+    this.uiService.hideLoading();
+  }
+
+  getPosts() {
+    return this.store.select(selectPostsState);
   }
 
   handleError(error: HttpErrorResponse, uiService: UiService) {

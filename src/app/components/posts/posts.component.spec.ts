@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { render, screen } from "@testing-library/angular";
+import { render } from "@testing-library/angular";
 import "@testing-library/jest-dom";
 import { of } from "rxjs";
 import { PostsService } from "../../services/posts/posts.service";
@@ -10,6 +10,7 @@ describe("Given a Posts component", () => {
     const posts$ = of([{}, {}, {}]);
     const mockPostsService = {
       loadPosts: jest.fn(() => of({ posts$ })),
+      getPosts: jest.fn(),
     };
     const renderComponent = async () => {
       await render(PostsComponent, {

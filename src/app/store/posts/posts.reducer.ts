@@ -12,4 +12,8 @@ export const postsFeature = createFeature({
   ),
 });
 
-export const { name: postsFeatureKey, reducer } = postsFeature;
+export const {
+  name: postsFeatureKey,
+  selectPostsState,
+  reducer,
+} = postsFeature;
