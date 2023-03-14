@@ -1,6 +1,5 @@
 import { Component, Inject } from "@angular/core";
 import { map, type Observable } from "rxjs";
-import { UiService } from "../../services/ui/ui.service";
 import { PostsService } from "../../services/posts/posts.service";
 import { type Posts } from "../../store/posts/types";
 
@@ -13,8 +12,7 @@ export class PostsComponent {
   posts$: Observable<Posts> = this.getPosts();
 
   constructor(
-    @Inject(PostsService) private readonly postsService: PostsService,
-    @Inject(UiService) private readonly uiService: UiService
+    @Inject(PostsService) private readonly postsService: PostsService
   ) {}
 
   ngOnInit(): void {

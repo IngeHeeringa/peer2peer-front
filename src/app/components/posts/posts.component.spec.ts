@@ -1,21 +1,27 @@
-import { type ComponentFixture, TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { render, screen } from "@testing-library/angular";
+import "@testing-library/jest-dom";
+import { of } from "rxjs";
+import { PostsService } from "../../services/posts/posts.service";
 import { PostsComponent } from "./posts.component";
 
-describe.skip("PostsComponent", () => {
-  let component: PostsComponent;
-  let fixture: ComponentFixture<PostsComponent>;
+describe("Given a Posts component", () => {
+  describe("When rendered", () => {
+    const posts$ = of([{}, {}, {}]);
+    const mockPostsService = {
+      loadPosts: jest.fn(() => of({ posts$ })),
+    };
+    const renderComponent = async () => {
+      await render(PostsComponent, {
+        imports: [HttpClientTestingModule],
+        providers: [{ provide: PostsService, useValue: mockPostsService }],
+      });
+    };
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [PostsComponent],
-    }).compileComponents();
+    test("Then it should show a Post component for every post in the list", async () => {
+      await renderComponent();
 
-    fixture = TestBed.createComponent(PostsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it("should create", () => {
-    expect(component).toBeTruthy();
+      expect(mockPostsService.loadPosts).toHaveBeenCalled();
+    });
   });
 });

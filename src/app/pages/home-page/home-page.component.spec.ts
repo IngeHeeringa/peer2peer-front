@@ -31,6 +31,15 @@ describe("Given a HomePageComponent", () => {
 
       expect(logo).toBeInTheDocument();
     });
+
+    test("Then it should show the title 'All posts' in a heading", async () => {
+      const title = /all posts/i;
+
+      await renderComponent();
+      const heading = screen.getByRole("heading", { name: title });
+
+      expect(heading).toBeInTheDocument();
+    });
   });
 
   describe("When the user is not logged", () => {
