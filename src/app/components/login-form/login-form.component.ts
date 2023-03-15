@@ -43,7 +43,6 @@ export class LoginFormComponent {
       const { email }: CustomTokenPayload = decode(token);
 
       this.tokenService.storeToken(token);
-
       this.userService.login({ email, token });
       this.uiService.hideLoading();
       this.uiService.redirectUser("");
