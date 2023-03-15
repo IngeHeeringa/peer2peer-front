@@ -1,18 +1,34 @@
 import { render, screen } from "@testing-library/angular";
 import { PostComponent } from "./post.component";
 import "@testing-library/jest-dom";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { provideMockStore } from "@ngrx/store/testing";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { PostsService } from "../../services/posts/posts.service";
+import userEvent from "@testing-library/user-event/";
 
 describe("Given a Post component", () => {
   const post = {
     image: "testUrl",
     projectTitle: "testProjectTitle",
     shortDescription: "testShortDescription",
+    fullDescription: "testFullDescription",
     stack: "testStack",
     technologies: ["testTechnology", "testTechnology2"],
     yearsOfExperience: "testExperience",
+    id: "1",
+  };
+
+  const mockPostsService = {
+    deletePostById: jest.fn(),
   };
   const renderComponent = async () => {
     await render(PostComponent, {
+      imports: [HttpClientTestingModule, MatSnackBarModule],
+      providers: [
+        provideMockStore(),
+        { provide: PostsService, useValue: mockPostsService },
+      ],
       componentProperties: { post },
     });
   };
@@ -45,6 +61,28 @@ describe("Given a Post component", () => {
       const heading = screen.getByRole("heading", { name: title });
 
       expect(heading).toBeInTheDocument();
+    });
+
+    test("Then it should show a button to delete the post", async () => {
+      const ariaLabel = /delete icon/i;
+
+      await renderComponent();
+      const deleteButton = screen.getByRole("button", { name: ariaLabel });
+
+      expect(deleteButton).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user clicks on the delete button", () => {
+    test("Then the postsService's deletePostById method should be invoked", async () => {
+      const ariaLabel = /delete icon/i;
+
+      await renderComponent();
+      const deleteButton = screen.getByRole("button", { name: ariaLabel });
+
+      await userEvent.click(deleteButton);
+
+      expect(mockPostsService.deletePostById).toHaveBeenCalled();
     });
   });
 });

@@ -84,9 +84,9 @@ describe("Given a Header component", () => {
 
       await renderComponent();
 
-      const button = screen.getByRole("link", { name: buttonText });
+      const logoutButton = screen.getByRole("link", { name: buttonText });
 
-      expect(button).toBeInTheDocument();
+      expect(logoutButton).toBeInTheDocument();
     });
   });
 

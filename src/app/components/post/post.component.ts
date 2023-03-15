@@ -1,4 +1,6 @@
-import { Component, Input } from "@angular/core";
+import { Component, Inject, Input } from "@angular/core";
+import { PostsService } from "../../services/posts/posts.service";
+import { type Post } from "../../store/posts/types";
 
 @Component({
   selector: "app-post",
@@ -6,12 +8,13 @@ import { Component, Input } from "@angular/core";
   styleUrls: ["./post.component.scss"],
 })
 export class PostComponent {
-  @Input() post = {
-    image: "",
-    projectTitle: "",
-    shortDescription: "",
-    stack: "",
-    technologies: [""],
-    yearsOfExperience: "",
-  };
+  @Input() post!: Post;
+
+  constructor(
+    @Inject(PostsService) private readonly postsService: PostsService
+  ) {}
+
+  deletePost() {
+    this.postsService.deletePostById(this.post.id);
+  }
 }
