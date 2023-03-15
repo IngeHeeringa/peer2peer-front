@@ -10,6 +10,24 @@
   background-color: map-get(variables.$primary-color, "main");
 }
 
+.delete-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  height: 41px;
+  width: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: map-get(variables.$accent-color, "main");
+  z-index: 1;
+
+  &__icon {
+    transform: scale(1.2);
+  }
+}
+
 .gradient-overlay {
   position: relative;
 
