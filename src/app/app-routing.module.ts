@@ -15,7 +15,8 @@ const routes: Routes = [
     path: "users/register",
     component: RegisterPageComponent,
   },
-  { path: "**", component: NotFoundPageComponent },
+  { path: "**", redirectTo: "/404" },
+  { path: "404", component: NotFoundPageComponent },
 ];
 
 @NgModule({
