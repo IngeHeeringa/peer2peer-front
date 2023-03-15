@@ -156,7 +156,7 @@ describe("Given a LoginForm component", () => {
   });
 
   describe("When the user submits the form with the correct credentials email 'mock@user.com' and password 'safepassword123'", () => {
-    test("Then the UserSerive's getToken method should be invoked with the user's credentials", async () => {
+    test("Then the UserService's getToken method should be invoked with the user's credentials", async () => {
       const userCredentials: UserCredentials = {
         email: "mock@user.com",
         password: "safepassword123",

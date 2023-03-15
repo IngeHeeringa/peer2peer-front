@@ -13,7 +13,7 @@ import { MaterialModule } from "./material/material.module";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { NavigationComponent } from "./components/navigation/navigation.component";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
-import { HashLocationStrategy, LocationStrategy } from "@angular/common";
+import { LocationStrategy, PathLocationStrategy } from "@angular/common";
 import { UiModule } from "./store/ui/ui.module";
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
 import { LoadingComponent } from "./components/loading/loading.component";
@@ -55,7 +55,7 @@ import { PostsComponent } from "./components/posts/posts.component";
     UiModule,
     PostsModule,
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
