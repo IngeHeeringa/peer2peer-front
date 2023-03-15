@@ -80,8 +80,7 @@ export class UserService {
   handleError(error: HttpErrorResponse, uiService: UiService) {
     uiService.hideLoading();
     if (error.error?.error) {
-      uiService.showErrorModal(error.error.error as string);
-      return throwError(() => new Error(error.error.error as string));
+      uiService.showErrorModal("Wrong credentials");
     }
 
     if (error.message) {
