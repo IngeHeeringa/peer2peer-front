@@ -81,6 +81,7 @@ export class UserService {
     uiService.hideLoading();
     if (error.error?.error) {
       uiService.showErrorModal(error.error.error as string);
+      return throwError(() => new Error(error.error.error as string));
     }
 
     if (error.message) {
