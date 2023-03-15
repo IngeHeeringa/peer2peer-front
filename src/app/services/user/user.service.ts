@@ -84,7 +84,7 @@ export class UserService {
     }
 
     if (error.message) {
-      uiService.showErrorModal(error.message);
+      uiService.showErrorModal("Something went wrong");
     }
 
     return throwError(() => new Error(error.message));
