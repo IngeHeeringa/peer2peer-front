@@ -69,7 +69,7 @@ describe("Given a Posts Service", () => {
 
   describe("When an HttpErrorResponse with an error field is thrown", () => {
     test("Then it should call the showErrorModal method of the uiService", () => {
-      const mockError = { error: { error: "mockError" } };
+      const mockError = { error: { error: "Could not retrieve any posts" } };
       const spy = jest.spyOn(uiService, "showErrorModal");
 
       postsService.handleError(mockError as HttpErrorResponse, uiService);

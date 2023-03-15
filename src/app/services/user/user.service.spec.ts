@@ -160,7 +160,7 @@ describe("Given a User Service", () => {
 
   describe("When an HttpErrorResponse with an error field is thrown", () => {
     test("Then it should call the showErrorModal method of the uiService", () => {
-      const mockError = { error: { error: "mockError" } };
+      const mockError = { error: { error: "Wrong credentials" } };
       const spy = jest.spyOn(uiService, "showErrorModal");
 
       userService.handleError(mockError as HttpErrorResponse, uiService);
