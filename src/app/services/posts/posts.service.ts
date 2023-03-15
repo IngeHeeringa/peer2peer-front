@@ -7,7 +7,6 @@ import { selectPostsState } from "../../store/posts/posts.reducer";
 import { environment } from "../../../environments/environment";
 import { type ApiResponse } from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
-import { showModal } from "src/app/store/ui/ui.actions";
 
 @Injectable({
   providedIn: "root",
@@ -23,6 +22,7 @@ export class PostsService {
 
   loadPosts() {
     this.uiService.showLoading();
+
     const posts$ = this.http
       .get<ApiResponse>(this.postsUrl)
       .pipe(
