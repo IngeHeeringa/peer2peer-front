@@ -22,7 +22,6 @@ export class PostsService {
 
   loadPosts() {
     this.uiService.showLoading();
-
     const posts$ = this.http
       .get<ApiResponse>(this.postsUrl)
       .pipe(

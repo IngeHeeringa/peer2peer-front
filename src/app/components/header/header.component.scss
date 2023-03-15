@@ -24,6 +24,7 @@
     height: auto;
     position: absolute;
     left: 30px;
+    filter: brightness(10%) saturate(0%);
   }
 
   &__cta {
