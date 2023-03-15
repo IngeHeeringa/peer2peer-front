@@ -15,6 +15,7 @@ describe("Given a Posts Reducer function", () => {
           stack: "Mock Stack",
           technologies: ["Mock", "Test", "Fake"],
           yearsOfExperience: "<1 year",
+          id: "1",
         },
         {
           projectTitle: "Test Project",
@@ -24,6 +25,7 @@ describe("Given a Posts Reducer function", () => {
           stack: "Mock Stack",
           technologies: ["Fake", "Test"],
           yearsOfExperience: "1-3 years",
+          id: "2",
         },
       ];
       const expectedPostsState: Posts = [
@@ -35,6 +37,7 @@ describe("Given a Posts Reducer function", () => {
           stack: "Mock Stack",
           technologies: ["Mock", "Test", "Fake"],
           yearsOfExperience: "<1 year",
+          id: "1",
         },
         {
           projectTitle: "Test Project",
@@ -44,6 +47,7 @@ describe("Given a Posts Reducer function", () => {
           stack: "Mock Stack",
           technologies: ["Fake", "Test"],
           yearsOfExperience: "1-3 years",
+          id: "2",
         },
       ];
 
