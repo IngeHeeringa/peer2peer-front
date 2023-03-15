@@ -10,7 +10,7 @@ import { Store } from "@ngrx/store";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { PostsService } from "./posts.service";
-import { loadPosts } from "../../store/posts/posts.actions";
+import { deletePostById, loadPosts } from "../../store/posts/posts.actions";
 
 describe("Given a Posts Service", () => {
   let postsService: PostsService;
@@ -39,7 +39,7 @@ describe("Given a Posts Service", () => {
     httpMock.verify();
   });
 
-  describe("When loadPosts method is invoked and succeeds", () => {
+  describe("When its loadPosts method is invoked and succeeds", () => {
     test("Then it should dispatch a loadPosts action with the posts payload", () => {
       const mockApiResponse = {
         posts: [],
@@ -56,9 +56,7 @@ describe("Given a Posts Service", () => {
 
       spy.mockRestore();
     });
-  });
 
-  describe("When its loadPosts method is invoked", () => {
     test("Then it should make a GET request to the posts endpoint", () => {
       postsService.loadPosts();
 
@@ -100,6 +98,47 @@ describe("Given a Posts Service", () => {
       postsService.loadPosts();
 
       const req = httpMock.expectOne(`${postsService.postsUrl}`);
+      req.error(errorEvent);
+
+      expect(spy).toHaveBeenCalled();
+
+      spy.mockRestore();
+    });
+  });
+
+  describe("When its deletePostById method is invoked with a post's id", () => {
+    test("Then it should make a DELETE request to the posts/delete endpoint with the post's id", () => {
+      postsService.deletePostById("1");
+
+      const req = httpMock.expectOne(`${postsService.postsUrl}/delete/1`);
+      expect(req.request.method).toEqual("DELETE");
+    });
+
+    test("Then it should dispatch a deletePostById action with a payload of the post's id", () => {
+      const mockApiResponse = {
+        message: "Post deleted successfully",
+      };
+      const spy = jest.spyOn(store, "dispatch");
+
+      postsService.deletePostById("1");
+      const req = httpMock.expectOne(`${postsService.postsUrl}/delete/1`);
+      req.flush(mockApiResponse);
+
+      expect(spy).toHaveBeenCalledWith(deletePostById({ payload: "1" }));
+
+      spy.mockRestore();
+    });
+  });
+
+  describe("When its deletePostById method is invoked and fails", () => {
+    test("Then it should call its handleError method", () => {
+      const errorEvent = new ProgressEvent("error");
+
+      const spy = jest.spyOn(postsService, "handleError");
+
+      postsService.deletePostById("3");
+
+      const req = httpMock.expectOne(`${postsService.postsUrl}/delete/3`);
       req.error(errorEvent);
 
       expect(spy).toHaveBeenCalled();

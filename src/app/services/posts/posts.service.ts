@@ -2,7 +2,7 @@ import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { catchError, throwError } from "rxjs";
-import { loadPosts } from "../../store/posts/posts.actions";
+import { deletePostById, loadPosts } from "../../store/posts/posts.actions";
 import { selectPostsState } from "../../store/posts/posts.reducer";
 import { environment } from "../../../environments/environment";
 import { type ApiResponse } from "../../store/posts/types";
@@ -22,6 +22,7 @@ export class PostsService {
 
   loadPosts() {
     this.uiService.showLoading();
+
     const posts$ = this.http
       .get<ApiResponse>(this.postsUrl)
       .pipe(
@@ -41,6 +42,24 @@ export class PostsService {
 
   getPosts() {
     return this.store.select(selectPostsState);
+  }
+
+  deletePostById(id: string) {
+    this.uiService.showLoading();
+
+    const response$ = this.http
+      .delete(`${this.postsUrl}/delete/${id}`)
+      .pipe(
+        catchError((error) =>
+          this.handleError(error as HttpErrorResponse, this.uiService)
+        )
+      );
+
+    response$.subscribe((data) => {
+      this.store.dispatch(deletePostById({ payload: id }));
+      this.uiService.showSuccessModal("Your post has been deleted");
+      this.uiService.hideLoading();
+    });
   }
 
   handleError(error: HttpErrorResponse, uiService: UiService) {
