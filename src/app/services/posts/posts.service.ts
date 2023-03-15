@@ -1,7 +1,7 @@
 import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { catchError, map, throwError } from "rxjs";
+import { catchError, throwError } from "rxjs";
 import { loadPosts } from "../../store/posts/posts.actions";
 import { selectPostsState } from "../../store/posts/posts.reducer";
 import { environment } from "../../../environments/environment";
@@ -47,6 +47,7 @@ export class PostsService {
     uiService.hideLoading();
     if (error.error?.error) {
       uiService.showErrorModal(error.error.error as string);
+      return throwError(() => new Error(error.error.error as string));
     }
 
     if (error.message) {

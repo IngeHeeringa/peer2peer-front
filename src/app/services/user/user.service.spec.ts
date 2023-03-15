@@ -2,7 +2,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from "@angular/common/http/testing";
-import { TestBed } from "@angular/core/testing";
+import { flush, TestBed } from "@angular/core/testing";
 import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
 import { UserService } from "./user.service";
 import { UiService } from "../ui/ui.service";
