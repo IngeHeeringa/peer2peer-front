@@ -34,7 +34,7 @@ export class PostFormComponent {
     stack: [[], [Validators.required]],
     technologies: [[], [Validators.required]],
     yearsOfExperience: ["", [Validators.required]],
-    image: [File, Validators.required],
+    image: [File],
   });
 
   constructor(@Inject(FormBuilder) private readonly fb: FormBuilder) {}

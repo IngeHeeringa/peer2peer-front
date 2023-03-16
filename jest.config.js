@@ -5,7 +5,6 @@ module.exports = {
   collectCoverageFrom: [
     "src/**/*.ts",
     "!src/main.ts",
-    "!src/app/**/index.ts",
     "!src/app/**/*.module.ts",
     "src/**/app-routing.module.ts",
   ],
