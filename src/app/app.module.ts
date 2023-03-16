@@ -23,6 +23,7 @@ import { HeaderComponent } from "./components/header/header.component";
 import { PostsModule } from "./store/posts/posts.module";
 import { PostComponent } from "./components/post/post.component";
 import { PostsComponent } from "./components/posts/posts.component";
+import { PostFormComponent } from "./components/post-form/post-form.component";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { PostsComponent } from "./components/posts/posts.component";
     HeaderComponent,
     PostComponent,
     PostsComponent,
+    PostFormComponent,
   ],
   imports: [
     BrowserModule,

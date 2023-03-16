@@ -1,0 +1,20 @@
+@use "../../../styles/partials/_variables.scss";
+
+::ng-deep .mat-icon-button .mat-button-wrapper .mat-icon {
+  display: none;
+}
+
+:host ::ng-deep .mat-input-element {
+  color: variables.$secondary-color;
+  background-color: transparent;
+  outline: none;
+}
+
+::ng-deep .button-browse {
+  border-radius: 0 !important;
+  width: 245px !important;
+  height: 55px !important;
+  position: absolute !important;
+  top: 0;
+  left: -15px;
+}
