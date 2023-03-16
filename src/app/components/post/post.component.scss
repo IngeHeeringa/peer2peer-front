@@ -55,6 +55,12 @@
   position: relative;
   height: 100%;
 
+  &__creator {
+    color: map-get(variables.$accent-color, "main");
+    font-weight: 700;
+    align-self: flex-end;
+  }
+
   &__project-title {
     font-size: 2rem;
     margin: 0;
