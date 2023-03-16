@@ -11,6 +11,7 @@ const posts: Posts = [
     stack: "Mock Stack",
     technologies: ["Mock", "Test", "Fake"],
     yearsOfExperience: "<1 year",
+    creator: "Mock Creator",
     id: "1",
   },
   {
@@ -21,6 +22,7 @@ const posts: Posts = [
     stack: "Mock Stack",
     technologies: ["Fake", "Test"],
     yearsOfExperience: "1-3 years",
+    creator: "Mock Creator",
     id: "2",
   },
 ];
@@ -38,6 +40,7 @@ describe("Given a Posts Reducer function", () => {
           stack: "Mock Stack",
           technologies: ["Mock", "Test", "Fake"],
           yearsOfExperience: "<1 year",
+          creator: "Mock Creator",
           id: "1",
         },
         {
@@ -48,6 +51,7 @@ describe("Given a Posts Reducer function", () => {
           stack: "Mock Stack",
           technologies: ["Fake", "Test"],
           yearsOfExperience: "1-3 years",
+          creator: "Mock Creator",
           id: "2",
         },
       ];
@@ -71,6 +75,7 @@ describe("Given a Posts Reducer function", () => {
           stack: "Mock Stack",
           technologies: ["Mock", "Test", "Fake"],
           yearsOfExperience: "<1 year",
+          creator: "Mock Creator",
           id: "1",
         },
         {
@@ -81,6 +86,7 @@ describe("Given a Posts Reducer function", () => {
           stack: "Mock Stack",
           technologies: ["Fake", "Test"],
           yearsOfExperience: "1-3 years",
+          creator: "Mock Creator",
           id: "2",
         },
       ];
@@ -93,6 +99,7 @@ describe("Given a Posts Reducer function", () => {
           stack: "Mock Stack",
           technologies: ["Fake", "Test"],
           yearsOfExperience: "1-3 years",
+          creator: "Mock Creator",
           id: "2",
         },
       ];

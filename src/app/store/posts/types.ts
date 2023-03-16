@@ -6,6 +6,7 @@ export interface Post {
   stack: string;
   technologies: string[];
   yearsOfExperience: string;
+  creator: string;
   id: string;
 }
 
