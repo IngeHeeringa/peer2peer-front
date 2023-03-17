@@ -9,7 +9,7 @@ import userEvent from "@testing-library/user-event/";
 
 describe("Given a Post component", () => {
   const post = {
-    imageUrl: "testUrl",
+    backupImage: "testUrl",
     projectTitle: "testProjectTitle",
     shortDescription: "testShortDescription",
     fullDescription: "testFullDescription",
