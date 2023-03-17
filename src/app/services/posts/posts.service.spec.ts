@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -142,6 +143,46 @@ describe("Given a Posts Service", () => {
       req.error(errorEvent);
 
       expect(spy).toHaveBeenCalled();
+
+      spy.mockRestore();
+    });
+  });
+
+  describe("When its submitPost method is invoked with valid form data'", () => {
+    test("Then it should make a POST request to the submit endpoint", () => {
+      const formData = {} as FormData;
+      const mockResponse = { message: "Register successful" };
+
+      postsService.submitPost(formData).subscribe((response) => {
+        expect(response).toEqual(mockResponse);
+      });
+
+      const req = httpMock.expectOne(`${postsService.postsUrl}/submit`);
+      expect(req.request.method).toEqual("POST");
+      expect(req.request.body).toEqual(formData);
+
+      req.flush(mockResponse);
+    });
+  });
+
+  describe("When its submitPost method is invoked and fails", () => {
+    test("Then it should call its handleError method", () => {
+      const formData = {} as FormData;
+
+      const spy = jest.spyOn(postsService, "handleError");
+
+      const errorEvent = new ProgressEvent("error");
+
+      postsService.submitPost(formData).subscribe({
+        error() {
+          expect(spy).toHaveBeenCalled();
+          spy.mockRestore();
+        },
+      });
+
+      const req = httpMock.expectOne(`${postsService.postsUrl}/submit`);
+
+      req.error(errorEvent);
 
       spy.mockRestore();
     });

@@ -5,7 +5,7 @@ import { catchError, type Observable, throwError } from "rxjs";
 import { deletePostById, loadPosts } from "../../store/posts/posts.actions";
 import { selectPostsState } from "../../store/posts/posts.reducer";
 import { environment } from "../../../environments/environment";
-import { type Post, type ApiResponse } from "../../store/posts/types";
+import { type ApiResponse } from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
 import { type CreatePostResponse } from "../../types";
 
