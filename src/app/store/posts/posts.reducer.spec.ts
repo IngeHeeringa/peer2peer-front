@@ -5,7 +5,7 @@ import { type Posts } from "./types";
 const posts: Posts = [
   {
     projectTitle: "Mock Project",
-    imageUrl: "url",
+    backupImage: "url",
     shortDescription: "Mock short description",
     fullDescription: "Mock full description",
     stack: "Mock Stack",
@@ -16,7 +16,7 @@ const posts: Posts = [
   },
   {
     projectTitle: "Test Project",
-    imageUrl: "url",
+    backupImage: "url",
     shortDescription: "Mock short description",
     fullDescription: "Mock full description",
     stack: "Mock Stack",
@@ -34,7 +34,7 @@ describe("Given a Posts Reducer function", () => {
       const expectedPostsState: Posts = [
         {
           projectTitle: "Mock Project",
-          imageUrl: "url",
+          backupImage: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
           stack: "Mock Stack",
@@ -45,7 +45,7 @@ describe("Given a Posts Reducer function", () => {
         },
         {
           projectTitle: "Test Project",
-          imageUrl: "url",
+          backupImage: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
           stack: "Mock Stack",
@@ -69,7 +69,7 @@ describe("Given a Posts Reducer function", () => {
       const currentPostsState: Posts = [
         {
           projectTitle: "Mock Project",
-          imageUrl: "url",
+          backupImage: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
           stack: "Mock Stack",
@@ -80,7 +80,7 @@ describe("Given a Posts Reducer function", () => {
         },
         {
           projectTitle: "Test Project",
-          imageUrl: "url",
+          backupImage: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
           stack: "Mock Stack",
@@ -93,7 +93,7 @@ describe("Given a Posts Reducer function", () => {
       const expectedPostsState: Posts = [
         {
           projectTitle: "Test Project",
-          imageUrl: "url",
+          backupImage: "url",
           shortDescription: "Mock short description",
           fullDescription: "Mock full description",
           stack: "Mock Stack",
