@@ -10,7 +10,7 @@ describe("Given a Posts component", () => {
     const posts$ = of([{}, {}, {}]);
     const mockPostsService = {
       loadPosts: jest.fn(() => of({ posts$ })),
-      getPosts: jest.fn(),
+      getPostsState: jest.fn(),
     };
     const renderComponent = async () => {
       await render(PostsComponent, {

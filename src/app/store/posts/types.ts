@@ -1,5 +1,5 @@
 export interface Post {
-  image: string;
+  imageUrl: string;
   projectTitle: string;
   shortDescription: string;
   fullDescription: string;

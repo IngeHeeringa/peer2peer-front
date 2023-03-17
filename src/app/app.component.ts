@@ -4,7 +4,7 @@ import { type Observable } from "rxjs";
 import { TokenService } from "./services/token/token.service";
 import { UiService } from "./services/ui/ui.service";
 import { UserService } from "./services/user/user.service";
-import { type CustomTokenPayload } from "./types";
+import { type CustomTokenPayloadEmail } from "./types";
 
 @Component({
   selector: "app-root",
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     const token = this.tokenService.fetchToken();
 
     if (token) {
-      const { email }: CustomTokenPayload = decode(token);
+      const { email }: CustomTokenPayloadEmail = decode(token);
 
       this.userService.login({ email, token });
     }
