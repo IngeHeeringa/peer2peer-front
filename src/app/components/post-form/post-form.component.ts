@@ -42,13 +42,13 @@ export class PostFormComponent {
   ];
 
   postForm = this.fb.group({
-    projectTitle: ["", [Validators.required]],
-    shortDescription: ["", [Validators.required]],
-    fullDescription: ["", [Validators.required]],
+    projectTitle: ["", [Validators.required, Validators.maxLength(15)]],
+    shortDescription: ["", [Validators.required, Validators.maxLength(20)]],
+    fullDescription: ["", [Validators.required, Validators.maxLength(200)]],
     stack: [[], [Validators.required]],
-    technologies: [[], [Validators.required]],
-    yearsOfExperience: ["", [Validators.required]],
-    image: [File, [Validators.required]],
+    technologies: [[], [Validators.required, Validators.min(1)]],
+    yearsOfExperience: ["1", [Validators.required]],
+    image: [undefined, [Validators.required]],
   });
 
   constructor(@Inject(FormBuilder) private readonly fb: FormBuilder) {}

@@ -2,18 +2,27 @@
   <mat-form-field class="post-form__field" appearance="outline" color="accent">
     <mat-label class="post-form__label" for="projectTitle" aria-label="projectTitle">Project name</mat-label>
     <input class="post-form__input" type="text" id="projectTitle" matInput formControlName="projectTitle" required>
+    <mat-error *ngIf="postForm.controls['projectTitle'].hasError('required')">Project name is required</mat-error>
+    <mat-error *ngIf="postForm.controls['projectTitle'].hasError('maxlength')">Maximum length is 15
+      characters</mat-error>
   </mat-form-field>
   <mat-form-field class="post-form__field" appearance="outline" color="accent">
     <mat-label class="post-form__label" for="shortDescription" aria-label="shortDescription">I want to
       build...</mat-label>
     <input class="post-form__input" type="text" id="shortDescription" matInput formControlName="shortDescription"
       required>
+    <mat-error *ngIf="postForm.controls['shortDescription'].hasError('required')">Description is required</mat-error>
+    <mat-error *ngIf="postForm.controls['projectTitle'].hasError('maxlength')">Maximum length is 20
+      characters</mat-error>
   </mat-form-field>
   <mat-form-field class="post-form__field" appearance="outline" color="accent">
     <mat-label class="post-form__label" for="fullDescription" aria-label="fullDescription">Describe your
       challenge</mat-label>
     <textarea class="post-form__input" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
       cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10" formControlName="fullDescription" required></textarea>
+    <mat-error *ngIf="postForm.controls['fullDescription'].hasError('required')">Challenge description is
+      required</mat-error>
+    <mat-error *ngIf="postForm.controls['projectTitle'].hasError('maxlength')">Description is too long</mat-error>
   </mat-form-field>
   <mat-form-field class="post-form__field" appearance="outline" color="accent">
     <mat-label>Stack</mat-label>
@@ -22,25 +31,31 @@
         {{option.viewValue}}
       </mat-option>
     </mat-select>
+    <mat-error *ngIf="postForm.controls['stack'].hasError('required')">Stack is required</mat-error>
   </mat-form-field>
   <mat-form-field class="post-form__field" appearance="outline" color="accent">
     <mat-label>Technologies</mat-label>
     <mat-select formControlName="technologies" multiple>
       <mat-option *ngFor="let technology of technologies" [value]="technology">{{technology}}</mat-option>
     </mat-select>
+    <mat-error *ngIf="postForm.controls['technologies'].hasError('required')">Choose at least one technology</mat-error>
   </mat-form-field>
   <label class="post-form__label-experience">Experience</label>
-  <mat-radio-group aria-label="Years of experience" class="post-form__experience">
-    <mat-radio-button value="1">&lt;1 year</mat-radio-button>
+  <mat-radio-group aria-label="Years of experience" class="post-form__experience" formControlName="yearsOfExperience">
+    <mat-radio-button value="1" checked>&lt;1 year</mat-radio-button>
     <mat-radio-button value="2">1-3 years</mat-radio-button>
     <mat-radio-button value="3">3-5 years</mat-radio-button>
     <mat-radio-button value="4">5-10 years</mat-radio-button>
     <mat-radio-button value="5">10+ years</mat-radio-button>
+    <mat-error *ngIf="postForm.controls['yearsOfExperience'].hasError('required')">Please indicate your
+      experience</mat-error>
   </mat-radio-group>
   <mat-form-field class="post-form__field" appearance="outline">
-    <mat-label>Image</mat-label>
-    <ngx-mat-file-input formControlName="image" placeholder="Upload an image"></ngx-mat-file-input>
+    <mat-label>Upload an image</mat-label>
+    <ngx-mat-file-input formControlName="image" placeholder=""></ngx-mat-file-input>
     <mat-icon matSuffix>add_photo_alternate</mat-icon>
+    <mat-error *ngIf="postForm.get('image')!.hasError('required')">Image is required</mat-error>
   </mat-form-field>
-  <button mat-flat-button color="accent" class="post-form__submit-button" type="submit">Submit post</button>
+  <button mat-flat-button color="accent" class="post-form__submit-button" type="submit"
+    [disabled]="postForm.invalid">Submit post</button>
 </form>
