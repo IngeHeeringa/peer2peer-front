@@ -1,0 +1,72 @@
+@use "../../../styles/partials/_variables.scss";
+
+::ng-deep .mat-icon-button .mat-button-wrapper .mat-icon {
+  display: none;
+}
+
+:host ::ng-deep .mat-input-element {
+  color: variables.$secondary-color;
+  background-color: transparent;
+  outline: none;
+}
+
+::ng-deep .button-browse {
+  border-radius: 0 !important;
+  width: 100% !important;
+  height: 55px !important;
+  position: absolute !important;
+  top: 0;
+  left: -15px;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+
+  &__field,
+  &__input,
+  &__submit-button {
+    width: 100%;
+  }
+
+  &__submit-button {
+    padding: 25px 10px;
+  }
+
+  &__label-experience {
+    font-family: variables.$display-font;
+    font-size: 1.5rem;
+    align-self: flex-start;
+  }
+}
+
+mat-radio-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+::ng-deep .mat-radio-label-content {
+  color: red;
+}
+
+@media (min-width: 768px) {
+  .post-form {
+    width: 300px;
+  }
+}

@@ -21,8 +21,6 @@ export class PostsService {
   ) {}
 
   loadPosts() {
-    this.uiService.showLoading();
-
     const posts$ = this.http
       .get<ApiResponse>(this.postsUrl)
       .pipe(
@@ -36,8 +34,6 @@ export class PostsService {
 
       this.store.dispatch(loadPosts({ payload: posts }));
     });
-
-    this.uiService.hideLoading();
   }
 
   getPosts() {
