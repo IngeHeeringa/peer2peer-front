@@ -1,4 +1,11 @@
-import { render, screen } from "@testing-library/angular";
+import {
+  fireEvent,
+  queryByText,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/angular";
+import userEvent from "@testing-library/user-event/";
 import { PostFormComponent } from "./post-form.component";
 import "@testing-library/jest-dom";
 import { MatInputModule } from "@angular/material/input";
@@ -86,6 +93,14 @@ describe("Given a PostForm component", () => {
       expect(experienceInput).toBeInTheDocument();
     });
 
+    test("Then the first option '<1 year' of the experience options should be checked", async () => {
+      await renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByRole("radio", { name: "<1 year" })).toBeChecked();
+      });
+    });
+
     test("Then it should show a file input for an image", async () => {
       const imageLabel = /image/i;
 
@@ -106,6 +121,128 @@ describe("Given a PostForm component", () => {
       });
 
       expect(submitButton).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user enters a project name with a correct format", () => {
+    test("Then it should not show any validation errors", async () => {
+      await renderComponent();
+
+      const projectNameInput = screen.getByLabelText("Project name");
+
+      await userEvent.click(projectNameInput);
+      await userEvent.type(projectNameInput, "Mock project");
+      await userEvent.tab();
+
+      expect(projectNameInput.getAttribute("aria-invalid")).toBe("false");
+    });
+  });
+
+  describe("When the user enters a project name longer than 15 characters", () => {
+    test("Then it should show the validation error 'Maximum length is 15 characters'", async () => {
+      const expectedErrorMessage = /maximum length is 15 characters/i;
+
+      await renderComponent();
+
+      const projectNameInput = screen.getByLabelText("Project name");
+
+      await userEvent.click(projectNameInput);
+      await userEvent.type(projectNameInput, "This project title is too long");
+      await userEvent.tab();
+
+      const errorMessage = screen.queryByText(expectedErrorMessage);
+
+      expect(errorMessage).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user unfocuses the project name field leaving it empty", () => {
+    test("Then it should show the validation error 'Project name is required'", async () => {
+      const expectedErrorMessage = /project name is required/i;
+
+      await renderComponent();
+
+      const projectNameInput = screen.getByLabelText("Project name");
+
+      await userEvent.click(projectNameInput);
+      await userEvent.type(projectNameInput, "{enter}");
+      await userEvent.tab();
+
+      const errorMessage = screen.queryByText(expectedErrorMessage);
+
+      expect(errorMessage).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user enters a short description with a correct format", () => {
+    test("Then it should not show any validation errors", async () => {
+      await renderComponent();
+
+      const shortDescriptionInput = screen.getByLabelText("I want to build...");
+
+      await userEvent.click(shortDescriptionInput);
+      await userEvent.type(shortDescriptionInput, "Reactive form");
+      await userEvent.tab();
+
+      expect(shortDescriptionInput.getAttribute("aria-invalid")).toBe("false");
+    });
+  });
+
+  describe("When the user enters a short description longer than 20 characters", () => {
+    test("Then it should show the validation error 'Maximum length is 20 characters'", async () => {
+      const expectedErrorMessage = /maximum length is 20 characters/i;
+
+      await renderComponent();
+
+      const shortDescriptionInput = screen.getByLabelText("I want to build...");
+
+      await userEvent.click(shortDescriptionInput);
+      await userEvent.type(
+        shortDescriptionInput,
+        "This short description is too long"
+      );
+      await userEvent.tab();
+
+      const errorMessage = screen.queryByText(expectedErrorMessage);
+
+      expect(errorMessage).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user unfocuses the short description field leaving it empty", () => {
+    test("Then it should show the validation error 'Project name is required'", async () => {
+      const expectedErrorMessage = /project name is required/i;
+
+      await renderComponent();
+
+      const projectNameInput = screen.getByLabelText("Project name");
+
+      await userEvent.click(projectNameInput);
+      await userEvent.type(projectNameInput, "{enter}");
+      await userEvent.tab();
+
+      const errorMessage = screen.queryByText(expectedErrorMessage);
+
+      expect(errorMessage).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user enters a full description with a correct format", () => {
+    test("Then it should not show any validation errors", async () => {
+      await renderComponent();
+
+      const fullDescriptionInput = screen.getByLabelText(
+        "Describe your challenge"
+      );
+
+      await userEvent.click(fullDescriptionInput);
+      await userEvent.type(
+        fullDescriptionInput,
+        "Hello, I am building an app and testing it with Angular Testing Library"
+      );
+      await userEvent.tab();
+
+      expect(fullDescriptionInput.getAttribute("aria-invalid")).toBe("false");
     });
   });
 });

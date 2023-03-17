@@ -12,7 +12,7 @@
     <input class="post-form__input" type="text" id="shortDescription" matInput formControlName="shortDescription"
       required>
     <mat-error *ngIf="postForm.controls['shortDescription'].hasError('required')">Description is required</mat-error>
-    <mat-error *ngIf="postForm.controls['projectTitle'].hasError('maxlength')">Maximum length is 20
+    <mat-error *ngIf="postForm.controls['shortDescription'].hasError('maxlength')">Maximum length is 20
       characters</mat-error>
   </mat-form-field>
   <mat-form-field class="post-form__field" appearance="outline" color="accent">
@@ -22,7 +22,7 @@
       cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10" formControlName="fullDescription" required></textarea>
     <mat-error *ngIf="postForm.controls['fullDescription'].hasError('required')">Challenge description is
       required</mat-error>
-    <mat-error *ngIf="postForm.controls['projectTitle'].hasError('maxlength')">Description is too long</mat-error>
+    <mat-error *ngIf="postForm.controls['fullDescription'].hasError('maxlength')">Description is too long</mat-error>
   </mat-form-field>
   <mat-form-field class="post-form__field" appearance="outline" color="accent">
     <mat-label>Stack</mat-label>
@@ -47,8 +47,6 @@
     <mat-radio-button value="3">3-5 years</mat-radio-button>
     <mat-radio-button value="4">5-10 years</mat-radio-button>
     <mat-radio-button value="5">10+ years</mat-radio-button>
-    <mat-error *ngIf="postForm.controls['yearsOfExperience'].hasError('required')">Please indicate your
-      experience</mat-error>
   </mat-radio-group>
   <mat-form-field class="post-form__field" appearance="outline">
     <mat-label>Upload an image</mat-label>
