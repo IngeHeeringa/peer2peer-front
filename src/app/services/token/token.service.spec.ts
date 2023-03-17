@@ -1,3 +1,6 @@
+import { TestBed } from "@angular/core/testing";
+import { Store } from "@ngrx/store";
+import { createMockStore } from "../../spec/mockStore";
 import { mockLocalStorage } from "../../spec/mockLocalStorage";
 import { TokenService } from "./token.service";
 
@@ -5,6 +8,7 @@ Object.defineProperty(window, "localStorage", { value: mockLocalStorage });
 
 describe("Given a Token Service", () => {
   const tokenService = new TokenService();
+
   beforeEach(() => {
     localStorage.clear();
   });

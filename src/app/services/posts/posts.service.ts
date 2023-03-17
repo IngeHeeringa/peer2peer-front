@@ -1,12 +1,13 @@
 import { HttpClient, type HttpErrorResponse } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { catchError, throwError } from "rxjs";
+import { catchError, type Observable, throwError } from "rxjs";
 import { deletePostById, loadPosts } from "../../store/posts/posts.actions";
 import { selectPostsState } from "../../store/posts/posts.reducer";
 import { environment } from "../../../environments/environment";
-import { type ApiResponse } from "../../store/posts/types";
+import { type Post, type ApiResponse } from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
+import { type CreatePostResponse } from "../../types";
 
 @Injectable({
   providedIn: "root",
@@ -36,7 +37,7 @@ export class PostsService {
     });
   }
 
-  getPosts() {
+  getPostsState() {
     return this.store.select(selectPostsState);
   }
 
@@ -58,10 +59,20 @@ export class PostsService {
     });
   }
 
+  submitPost(postData: FormData): Observable<CreatePostResponse> {
+    return this.http
+      .post<CreatePostResponse>(`${this.postsUrl}/submit`, postData)
+      .pipe(
+        catchError((error) =>
+          this.handleError(error as HttpErrorResponse, this.uiService)
+        )
+      );
+  }
+
   handleError(error: HttpErrorResponse, uiService: UiService) {
     uiService.hideLoading();
     if (error.error?.error) {
-      uiService.showErrorModal("Could not retrieve any posts");
+      uiService.showErrorModal(error.error.error as string);
     }
 
     if (error.message) {

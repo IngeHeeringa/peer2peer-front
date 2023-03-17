@@ -1,7 +1,11 @@
 import { type JwtPayload } from "jwt-decode";
 
-export interface CustomTokenPayload extends JwtPayload {
+export interface CustomTokenPayloadEmail extends JwtPayload {
   email: string;
+}
+
+export interface CustomTokenPayloadUsername extends JwtPayload {
+  username: string;
 }
 
 export interface UserRegisterData {
@@ -11,5 +15,9 @@ export interface UserRegisterData {
 }
 
 export interface UserRegisterResponse {
+  message: string;
+}
+
+export interface CreatePostResponse {
   message: string;
 }

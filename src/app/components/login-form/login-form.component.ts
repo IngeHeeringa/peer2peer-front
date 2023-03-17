@@ -2,7 +2,7 @@ import decode from "jwt-decode";
 import { Component, Inject } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { UserService } from "../../services/user/user.service";
-import { type CustomTokenPayload } from "../../types";
+import { type CustomTokenPayloadEmail } from "../../types";
 import { type UserCredentials } from "../../store/user/types";
 import { UiService } from "../../services/ui/ui.service";
 import { TokenService } from "../../services/token/token.service";
@@ -40,7 +40,7 @@ export class LoginFormComponent {
     this.userService.getToken(userCredentials).subscribe(async (data) => {
       const { token } = data;
 
-      const { email }: CustomTokenPayload = decode(token);
+      const { email }: CustomTokenPayloadEmail = decode(token);
 
       this.tokenService.storeToken(token);
       this.userService.login({ email, token });

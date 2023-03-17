@@ -11,7 +11,7 @@ import { loginUser, logoutUser } from "../../store/user/user.actions";
 import { Store } from "@ngrx/store";
 import { type UserRegisterData, type UserRegisterResponse } from "../../types";
 import { environment } from "../../../environments/environment.prod";
-import { selectIsLogged } from "../../store/user/user.reducer";
+import { selectIsLogged, selectToken } from "../../store/user/user.reducer";
 import { TokenService } from "../token/token.service";
 
 @Injectable({
@@ -22,7 +22,7 @@ export class UserService {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
-  private readonly userLoginUrl = `${environment.apiUrl}${environment.paths.users}${environment.paths.login}`;
+  private readonly userLoginUrl = `http://localhost:4000${environment.paths.users}${environment.paths.login}`;
   private readonly userRegisterUrl = `${environment.apiUrl}${environment.paths.users}${environment.paths.register}`;
 
   constructor(
