@@ -1,10 +1,4 @@
-import {
-  fireEvent,
-  queryByText,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/angular";
+import { render, screen, waitFor } from "@testing-library/angular";
 import userEvent from "@testing-library/user-event/";
 import { PostFormComponent } from "./post-form.component";
 import "@testing-library/jest-dom";
@@ -14,8 +8,17 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatSelectModule } from "@angular/material/select";
 import { MatRadioModule } from "@angular/material/radio";
 import { NgxMatFileInputModule } from "@angular-material-components/file-input";
+import { HttpClient } from "@angular/common/http";
+import { Store } from "@ngrx/store";
+import { createMockStore } from "../../spec/mockStore";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { PostsService } from "../../services/posts/posts.service";
 
 const renderComponent = async () => {
+  const store = createMockStore();
+  const mockPostsService = {
+    submitPost: jest.fn(),
+  };
   await render(PostFormComponent, {
     imports: [
       MatInputModule,
@@ -24,8 +27,33 @@ const renderComponent = async () => {
       MatSelectModule,
       NgxMatFileInputModule,
       MatRadioModule,
+      HttpClientTestingModule,
+    ],
+    providers: [
+      HttpClient,
+      { provide: Store, useValue: store },
+      { provide: PostsService, useValue: mockPostsService },
     ],
   });
+
+  return { mockPostsService };
+};
+
+const selectOption = async (element: HTMLElement, option: string) => {
+  await userEvent.click(element);
+  await userEvent.click(screen.getByRole("option", { name: option }));
+};
+
+const selectOptions = async (element: HTMLElement, options: string[]) => {
+  await userEvent.click(element);
+
+  for (const option of options) {
+    const optionElement = screen.getByRole("option", { name: option });
+    // eslint-disable-next-line no-await-in-loop
+    await userEvent.click(optionElement);
+  }
+
+  await userEvent.click(document.body);
 };
 
 describe("Given a PostForm component", () => {
@@ -138,9 +166,9 @@ describe("Given a PostForm component", () => {
     });
   });
 
-  describe("When the user enters a project name longer than 15 characters", () => {
-    test("Then it should show the validation error 'Maximum length is 15 characters'", async () => {
-      const expectedErrorMessage = /maximum length is 15 characters/i;
+  describe("When the user enters a project name longer than 25 characters", () => {
+    test("Then it should show the validation error 'Project name is too long'", async () => {
+      const expectedErrorMessage = /project name is too long/i;
 
       await renderComponent();
 
@@ -188,9 +216,9 @@ describe("Given a PostForm component", () => {
     });
   });
 
-  describe("When the user enters a short description longer than 20 characters", () => {
-    test("Then it should show the validation error 'Maximum length is 20 characters'", async () => {
-      const expectedErrorMessage = /maximum length is 20 characters/i;
+  describe("When the user enters a short description longer than 30 characters", () => {
+    test("Then it should show the validation error 'Description is too long'", async () => {
+      const expectedErrorMessage = /description is too long/i;
 
       await renderComponent();
 
@@ -210,15 +238,15 @@ describe("Given a PostForm component", () => {
   });
 
   describe("When the user unfocuses the short description field leaving it empty", () => {
-    test("Then it should show the validation error 'Project name is required'", async () => {
-      const expectedErrorMessage = /project name is required/i;
+    test("Then it should show the validation error 'Description is required is required'", async () => {
+      const expectedErrorMessage = /description is required/i;
 
       await renderComponent();
 
-      const projectNameInput = screen.getByLabelText("Project name");
+      const shortDescriptionInput = screen.getByLabelText("I want to build...");
 
-      await userEvent.click(projectNameInput);
-      await userEvent.type(projectNameInput, "{enter}");
+      await userEvent.click(shortDescriptionInput);
+      await userEvent.type(shortDescriptionInput, "{enter}");
       await userEvent.tab();
 
       const errorMessage = screen.queryByText(expectedErrorMessage);

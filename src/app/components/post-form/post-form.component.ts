@@ -52,7 +52,7 @@ export class PostFormComponent {
     fullDescription: ["", [Validators.required, Validators.maxLength(200)]],
     stack: ["", [Validators.required]],
     technologies: [[], [Validators.required, Validators.min(1)]],
-    yearsOfExperience: ["1", [Validators.required]],
+    yearsOfExperience: ["<1 year", [Validators.required]],
     image: [null, [Validators.required]],
   });
 
