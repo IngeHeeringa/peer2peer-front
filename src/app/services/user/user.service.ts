@@ -9,10 +9,15 @@ import { type User, type UserCredentials } from "../../store/user/types";
 import { UiService } from "../ui/ui.service";
 import { loginUser, logoutUser } from "../../store/user/user.actions";
 import { Store } from "@ngrx/store";
-import { type UserRegisterData, type UserRegisterResponse } from "../../types";
+import {
+  type CustomTokenPayloadUsername,
+  type UserRegisterData,
+  type UserRegisterResponse,
+} from "../../types";
 import { environment } from "../../../environments/environment.prod";
 import { selectIsLogged } from "../../store/user/user.reducer";
 import { TokenService } from "../token/token.service";
+import jwtDecode from "jwt-decode";
 
 @Injectable({
   providedIn: "root",
@@ -77,10 +82,18 @@ export class UserService {
     return this.store.select(selectIsLogged);
   }
 
+  checkUser() {
+    const token = this.tokenService.fetchToken();
+
+    const { username, sub }: CustomTokenPayloadUsername = jwtDecode(token!);
+
+    return { username, sub };
+  }
+
   handleError(error: HttpErrorResponse, uiService: UiService) {
     uiService.hideLoading();
     if (error.error?.error) {
-      uiService.showErrorModal("Wrong credentials");
+      uiService.showErrorModal(error.error.error as string);
     }
 
     if (error.message) {
