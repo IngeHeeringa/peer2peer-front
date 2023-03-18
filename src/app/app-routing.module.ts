@@ -4,6 +4,7 @@ import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
 import { RegisterPageComponent } from "./pages/register-page/register-page.component";
+import { SubmitPageComponent } from "./pages/submit-page/submit-page.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
     path: "users/register",
     component: RegisterPageComponent,
   },
+  { path: "submit", component: SubmitPageComponent },
   { path: "**", redirectTo: "/404" },
   { path: "404", component: NotFoundPageComponent },
 ];

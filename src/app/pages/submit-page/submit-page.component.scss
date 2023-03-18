@@ -10,18 +10,8 @@ main {
   padding: 75px 30px;
 }
 
-.register-redirect {
-  color: variables.$secondary-color;
-  font-size: 1rem;
-
-  &__cta {
-    color: map-get(variables.$accent-color, "main");
-    font-weight: 900;
-  }
-}
-
 @media (min-width: 768px) {
-  .title--login {
+  .title--submit {
     align-self: center;
   }
 }
