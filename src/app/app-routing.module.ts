@@ -16,7 +16,7 @@ const routes: Routes = [
     path: "users/register",
     component: RegisterPageComponent,
   },
-  { path: "submit", component: SubmitPageComponent },
+  { path: "new-post", component: SubmitPageComponent },
   { path: "**", redirectTo: "/404" },
   { path: "404", component: NotFoundPageComponent },
 ];
