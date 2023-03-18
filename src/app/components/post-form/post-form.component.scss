@@ -27,6 +27,14 @@
   width: 100%;
 }
 
+.form-column-wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .post-form {
   display: flex;
   flex-direction: column;
@@ -67,6 +75,12 @@ mat-radio-group {
 
 @media (min-width: 768px) {
   .post-form {
-    width: 300px;
+    flex-direction: row;
+    gap: 100px;
+  }
+
+  .form-column-wrapper {
+    width: 400px;
+    align-self: stretch;
   }
 }

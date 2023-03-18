@@ -1,0 +1,17 @@
+@use "../../../styles/partials/variables";
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 75px 30px;
+}
+
+@media (min-width: 768px) {
+  .title--submit {
+    align-self: center;
+  }
+}
