@@ -15,12 +15,11 @@ import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { PostsService } from "../../services/posts/posts.service";
 import { TokenService } from "../../services/token/token.service";
 import { of } from "rxjs";
-import { UiService } from "../../services/ui/ui.service";
 
 const renderComponent = async () => {
   const store = createMockStore();
   const mockPostsService = {
-    submitPost: jest.fn().mockReturnValue(of("true")),
+    submitPost: jest.fn().mockReturnValue(of(true)),
   };
   const mockTokenService = {
     fetchToken: jest

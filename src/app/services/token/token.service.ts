@@ -15,4 +15,10 @@ export class TokenService {
   removeToken() {
     localStorage.removeItem("token");
   }
+
+  getTokenBearer() {
+    const token = this.fetchToken();
+
+    return `Bearer ${token!}`;
+  }
 }

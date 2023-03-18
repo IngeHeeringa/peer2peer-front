@@ -1,5 +1,4 @@
 import { Component, Inject, Input } from "@angular/core";
-import { type Observable } from "rxjs";
 import { UserService } from "../../services/user/user.service";
 import { PostsService } from "../../services/posts/posts.service";
 import { type Post } from "../../store/posts/types";
@@ -11,7 +10,7 @@ import { type Post } from "../../store/posts/types";
 })
 export class PostComponent {
   @Input() post!: Post;
-  isLogged$: Observable<boolean> = this.userService.getIsLogged();
+  isLogged = this.userService.getIsLogged();
 
   constructor(
     @Inject(PostsService) private readonly postsService: PostsService,
@@ -20,5 +19,20 @@ export class PostComponent {
 
   deletePost() {
     this.postsService.deletePostById(this.post.id);
+  }
+
+  allowAction() {
+    try {
+      const user = this.userService.checkUser();
+      if (!user) {
+        return false;
+      }
+
+      const { username } = this.userService.checkUser();
+
+      return this.isLogged && this.post.creator === username;
+    } catch (error) {
+      return false;
+    }
   }
 }
