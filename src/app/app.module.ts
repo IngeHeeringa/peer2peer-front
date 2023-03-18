@@ -24,6 +24,7 @@ import { PostsModule } from "./store/posts/posts.module";
 import { PostComponent } from "./components/post/post.component";
 import { PostsComponent } from "./components/posts/posts.component";
 import { PostFormComponent } from "./components/post-form/post-form.component";
+import { SubmitPageComponent } from "./pages/submit-page/submit-page.component";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { PostFormComponent } from "./components/post-form/post-form.component";
     PostComponent,
     PostsComponent,
     PostFormComponent,
+    SubmitPageComponent,
   ],
   imports: [
     BrowserModule,
