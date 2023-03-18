@@ -27,17 +27,27 @@ describe("Given a Post component", () => {
   };
 
   const mockPostsService = createMock(PostsService);
-  const mockUserService = {
+  const mockUserServiceTrue = {
     getIsLogged: jest.fn().mockReturnValue(of(true)),
     checkUser: jest.fn().mockReturnValue({ username: "Mock Creator" }),
   };
-  const mockTokenService = {
+  const mockUserServiceFalse = {
+    getIsLogged: jest.fn().mockReturnValue(of(false)),
+    checkUser: jest.fn().mockImplementation(() => {
+      throw new Error("Missing token");
+    }),
+  };
+  const mockTokenServiceTrue = {
     fetchToken: jest
       .fn()
       .mockReturnValue(
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDA3MTRhZDM5MzE2MjBhYWI4NTI4N2MiLCJlbWFpbCI6Im1vY2tAdXNlci5jb20iLCJ1c2VybmFtZSI6Ik1vY2sgQ3JlYXRvciIsImlhdCI6MTY3OTEzNjkwMSwiZXhwIjoxNjc5MjIzMzAxfQ.346MS01N4mT-ax0jBg9ehIHbij-IbO1mLThSQ-KqYzk"
       ),
   };
+  const mockTokenServiceFalse = {
+    fetchToken: jest.fn().mockRejectedValue(undefined),
+  };
+
   const renderComponent = async () => {
     await render(PostComponent, {
       imports: [HttpClientTestingModule, MatSnackBarModule, MatIconModule],
@@ -46,8 +56,8 @@ describe("Given a Post component", () => {
           selectors: [{ selector: selectIsLogged, value: false }],
         }),
         { provide: PostsService, useValue: mockPostsService },
-        { provide: UserService, useValue: mockUserService },
-        { provide: TokenService, useValue: mockTokenService },
+        { provide: UserService, useValue: mockUserServiceTrue },
+        { provide: TokenService, useValue: mockTokenServiceTrue },
       ],
       componentProperties: { post },
     });
@@ -95,8 +105,8 @@ describe("Given a Post component", () => {
             selectors: [{ selector: selectIsLogged, value: true }],
           }),
           { provide: PostsService, useValue: mockPostsService },
-          { provide: UserService, useValue: mockUserService },
-          { provide: TokenService, useValue: mockTokenService },
+          { provide: UserService, useValue: mockUserServiceTrue },
+          { provide: TokenService, useValue: mockTokenServiceTrue },
         ],
         componentProperties: { post },
       });
@@ -104,6 +114,29 @@ describe("Given a Post component", () => {
       const deleteButton = screen.getByRole("button", { name: ariaLabel });
 
       expect(deleteButton).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user is logged and the post is not theirs", () => {
+    test("Then it should not show a button to delete the post", async () => {
+      const ariaLabel = /delete icon/i;
+
+      await render(PostComponent, {
+        imports: [HttpClientTestingModule, MatSnackBarModule, MatIconModule],
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectIsLogged, value: false }],
+          }),
+          { provide: PostsService, useValue: mockPostsService },
+          { provide: UserService, useValue: mockUserServiceFalse },
+          { provide: TokenService, useValue: mockTokenServiceFalse },
+        ],
+        componentProperties: { post },
+      });
+
+      const deleteButton = screen.queryByRole("button", { name: ariaLabel });
+
+      expect(deleteButton).not.toBeInTheDocument();
     });
   });
 
@@ -118,8 +151,8 @@ describe("Given a Post component", () => {
             selectors: [{ selector: selectIsLogged, value: true }],
           }),
           { provide: PostsService, useValue: mockPostsService },
-          { provide: UserService, useValue: mockUserService },
-          { provide: TokenService, useValue: mockTokenService },
+          { provide: UserService, useValue: mockUserServiceTrue },
+          { provide: TokenService, useValue: mockTokenServiceTrue },
         ],
         componentProperties: { post },
       });

@@ -23,11 +23,6 @@ export class PostComponent {
 
   allowAction() {
     try {
-      const user = this.userService.checkUser();
-      if (!user) {
-        return false;
-      }
-
       const { username } = this.userService.checkUser();
 
       return this.isLogged && this.post.creator === username;
