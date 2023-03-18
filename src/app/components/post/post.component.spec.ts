@@ -6,6 +6,7 @@ import { provideMockStore } from "@ngrx/store/testing";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { PostsService } from "../../services/posts/posts.service";
 import userEvent from "@testing-library/user-event/";
+import { selectIsLogged } from "../../store/user/user.reducer";
 
 describe("Given a Post component", () => {
   const post = {
@@ -27,7 +28,9 @@ describe("Given a Post component", () => {
     await render(PostComponent, {
       imports: [HttpClientTestingModule, MatSnackBarModule],
       providers: [
-        provideMockStore(),
+        provideMockStore({
+          selectors: [{ selector: selectIsLogged, value: false }],
+        }),
         { provide: PostsService, useValue: mockPostsService },
       ],
       componentProperties: { post },
@@ -63,11 +66,23 @@ describe("Given a Post component", () => {
 
       expect(heading).toBeInTheDocument();
     });
+  });
 
+  describe("When the user is logged", () => {
     test("Then it should show a button to delete the post", async () => {
       const ariaLabel = /delete icon/i;
 
-      await renderComponent();
+      await render(PostComponent, {
+        imports: [HttpClientTestingModule, MatSnackBarModule],
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectIsLogged, value: true }],
+          }),
+          { provide: PostsService, useValue: mockPostsService },
+        ],
+        componentProperties: { post },
+      });
+
       const deleteButton = screen.getByRole("button", { name: ariaLabel });
 
       expect(deleteButton).toBeInTheDocument();
@@ -78,7 +93,17 @@ describe("Given a Post component", () => {
     test("Then the postsService's deletePostById method should be invoked", async () => {
       const ariaLabel = /delete icon/i;
 
-      await renderComponent();
+      await render(PostComponent, {
+        imports: [HttpClientTestingModule, MatSnackBarModule],
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectIsLogged, value: true }],
+          }),
+          { provide: PostsService, useValue: mockPostsService },
+        ],
+        componentProperties: { post },
+      });
+
       const deleteButton = screen.getByRole("button", { name: ariaLabel });
 
       await userEvent.click(deleteButton);
