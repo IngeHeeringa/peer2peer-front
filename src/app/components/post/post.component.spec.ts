@@ -11,6 +11,7 @@ import { UserService } from "../../services/user/user.service";
 import { of } from "rxjs";
 import { MatIconModule } from "@angular/material/icon";
 import { TokenService } from "../../services/token/token.service";
+import { createMock } from "@testing-library/angular/jest-utils";
 
 describe("Given a Post component", () => {
   const post = {
@@ -25,9 +26,7 @@ describe("Given a Post component", () => {
     id: "1",
   };
 
-  const mockPostsService = {
-    deletePostById: jest.fn(),
-  };
+  const mockPostsService = createMock(PostsService);
   const mockUserService = {
     getIsLogged: jest.fn().mockReturnValue(of(true)),
     checkUser: jest.fn().mockReturnValue({ username: "Mock Creator" }),

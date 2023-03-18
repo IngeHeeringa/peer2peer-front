@@ -19,7 +19,7 @@ import { of } from "rxjs";
 const renderComponent = async () => {
   const store = createMockStore();
   const mockPostsService = {
-    submitPost: jest.fn().mockReturnValue(of("true")),
+    submitPost: jest.fn().mockReturnValue(of(true)),
   };
   const mockTokenService = {
     fetchToken: jest
