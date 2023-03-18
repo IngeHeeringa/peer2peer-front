@@ -13,11 +13,21 @@ import { Store } from "@ngrx/store";
 import { createMockStore } from "../../spec/mockStore";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { PostsService } from "../../services/posts/posts.service";
+import { TokenService } from "../../services/token/token.service";
+import { of } from "rxjs";
+import { UiService } from "../../services/ui/ui.service";
 
 const renderComponent = async () => {
   const store = createMockStore();
   const mockPostsService = {
-    submitPost: jest.fn(),
+    submitPost: jest.fn().mockReturnValue(of("true")),
+  };
+  const mockTokenService = {
+    fetchToken: jest
+      .fn()
+      .mockReturnValue(
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDA3MTRhZDM5MzE2MjBhYWI4NTI4N2MiLCJlbWFpbCI6Im1vY2tAdXNlci5jb20iLCJ1c2VybmFtZSI6Ik1vY2tVc2VyIiwiaWF0IjoxNjc5MTM2OTAxLCJleHAiOjE2NzkyMjMzMDF9.oTmorlHQdQA2nVGcWRYHpuLU2Bb7f_Frjimb9NaACNg"
+      ),
   };
   await render(PostFormComponent, {
     imports: [
@@ -33,6 +43,7 @@ const renderComponent = async () => {
       HttpClient,
       { provide: Store, useValue: store },
       { provide: PostsService, useValue: mockPostsService },
+      { provide: TokenService, useValue: mockTokenService },
     ],
   });
 
@@ -271,6 +282,38 @@ describe("Given a PostForm component", () => {
       await userEvent.tab();
 
       expect(fullDescriptionInput.getAttribute("aria-invalid")).toBe("false");
+    });
+  });
+
+  describe("When the user submits the form with valid form data", () => {
+    test("Then the PostsService's 'submitPost' method should be invoked", async () => {
+      const { mockPostsService } = await renderComponent();
+      const spy = jest.spyOn(mockPostsService, "submitPost");
+
+      const projectNameInput = screen.getByLabelText(/project name/i);
+      const shortDescriptionInput =
+        screen.getByLabelText(/i want to build.../i);
+      const fullDescriptionInput = screen.getByLabelText(
+        /describe your challenge/i
+      );
+      const stackInput = screen.getByLabelText(/stack/i);
+      const technologiesInput = screen.getByLabelText(/technologies/i);
+      const experienceInput = screen.getByRole("radio", { name: "<1 year" });
+      const submitButton = screen.getByRole("button", { name: "Submit post" });
+      await userEvent.type(projectNameInput, "My project");
+      await userEvent.type(shortDescriptionInput, "Integration test");
+      await userEvent.type(
+        fullDescriptionInput,
+        "Testing, testing, testing..."
+      );
+      await selectOption(stackInput, "Full Stack");
+      await selectOptions(technologiesInput, ["HTML", "CSS"]);
+      await userEvent.click(experienceInput);
+      await userEvent.click(submitButton);
+
+      await waitFor(() => {
+        expect(spy).toHaveBeenCalled();
+      });
     });
   });
 });

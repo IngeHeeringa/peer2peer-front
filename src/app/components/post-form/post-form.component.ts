@@ -53,7 +53,7 @@ export class PostFormComponent {
     stack: ["", [Validators.required]],
     technologies: [[], [Validators.required, Validators.min(1)]],
     yearsOfExperience: ["<1 year", [Validators.required]],
-    image: [null, [Validators.required]],
+    image: [null],
   });
 
   constructor(
@@ -68,14 +68,7 @@ export class PostFormComponent {
 
     const token = this.tokenService.fetchToken();
 
-    if (!token) {
-      this.uiService.hideLoading();
-      this.uiService.showErrorModal("You must be logged in to submit a post");
-      this.uiService.redirectUser("/users/login");
-      return;
-    }
-
-    const { username, sub }: CustomTokenPayloadUsername = jwtDecode(token);
+    const { username, sub }: CustomTokenPayloadUsername = jwtDecode(token!);
 
     const formData = new FormData();
 
