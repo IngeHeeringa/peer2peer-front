@@ -98,8 +98,10 @@
 
   &__technology {
     text-align: center;
+    display: flex;
+    align-items: center;
     width: fit-content;
-    padding: 5px;
+    padding: 5px 8px;
     border-radius: 20px;
   }
 }

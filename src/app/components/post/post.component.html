@@ -21,7 +21,7 @@
     </div>
     <div class="post__technologies technologies">
       <span *ngFor="let technology of post.technologies"
-        [className]="'technologies__technology' + ' ' + technology">{{technology}}</span>
+        [className]="'technologies__technology' + ' ' + technology.replace(' ' && '.', '').replace('#', '-sharp').replace('++', '-plus-plus').toLowerCase()">{{technology}}</span>
     </div>
   </div>
 </article>
