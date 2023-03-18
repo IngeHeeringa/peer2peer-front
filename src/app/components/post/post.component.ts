@@ -22,8 +22,17 @@ export class PostComponent {
   }
 
   allowAction() {
-    const { username } = this.userService.checkUser();
+    try {
+      const user = this.userService.checkUser();
+      if (!user) {
+        return false;
+      }
 
-    return this.isLogged && this.post.creator === username;
+      const { username } = this.userService.checkUser();
+
+      return this.isLogged && this.post.creator === username;
+    } catch (error) {
+      return false;
+    }
   }
 }
