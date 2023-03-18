@@ -1,10 +1,5 @@
 import { Inject, Injectable } from "@angular/core";
-import {
-  Router,
-  type ActivatedRouteSnapshot,
-  type RouterStateSnapshot,
-  type UrlTree,
-} from "@angular/router";
+import { Router, type UrlTree } from "@angular/router";
 import { type Observable } from "rxjs";
 import { environment } from "../../environments/environment";
 import { UserService } from "../services/user/user.service";
