@@ -8,6 +8,7 @@ import { environment } from "../../../environments/environment";
 import { type ApiResponse } from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
 import { type CreatePostResponse } from "../../types";
+import { TokenService } from "../token/token.service";
 
 @Injectable({
   providedIn: "root",
@@ -18,7 +19,8 @@ export class PostsService {
   constructor(
     @Inject(HttpClient) private readonly http: HttpClient,
     @Inject(UiService) private readonly uiService: UiService,
-    @Inject(Store) private readonly store: Store
+    @Inject(Store) private readonly store: Store,
+    @Inject(TokenService) private readonly tokenService: TokenService
   ) {}
 
   loadPosts() {
@@ -45,7 +47,11 @@ export class PostsService {
     this.uiService.showLoading();
 
     const response$ = this.http
-      .delete(`${this.postsUrl}/delete/${id}`)
+      .delete(`${this.postsUrl}/delete/${id}`, {
+        headers: {
+          Authorization: this.tokenService.getTokenBearer(),
+        },
+      })
       .pipe(
         catchError((error) =>
           this.handleError(error as HttpErrorResponse, this.uiService)
@@ -61,7 +67,11 @@ export class PostsService {
 
   submitPost(postData: FormData): Observable<CreatePostResponse> {
     return this.http
-      .post<CreatePostResponse>(`${this.postsUrl}/submit`, postData)
+      .post<CreatePostResponse>(`${this.postsUrl}/submit`, postData, {
+        headers: {
+          Authorization: this.tokenService.getTokenBearer(),
+        },
+      })
       .pipe(
         catchError((error) =>
           this.handleError(error as HttpErrorResponse, this.uiService)

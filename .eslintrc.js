@@ -13,6 +13,17 @@ module.exports = {
           "error",
           "interface",
         ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            selector: "property",
+            format: ["strictCamelCase"],
+            filter: {
+              regex: "^(Authorization|Content-Type)$",
+              match: false,
+            },
+          },
+        ],
       },
     },
   ],

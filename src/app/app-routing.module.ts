@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, type Routes } from "@angular/router";
+import { AuthGuard } from "./auth/auth.guard";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
@@ -16,7 +17,11 @@ const routes: Routes = [
     path: "users/register",
     component: RegisterPageComponent,
   },
-  { path: "new-post", component: SubmitPageComponent },
+  {
+    path: "new-post",
+    component: SubmitPageComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "**", redirectTo: "/404" },
   { path: "404", component: NotFoundPageComponent },
 ];
