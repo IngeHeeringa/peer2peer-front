@@ -1,10 +1,8 @@
 import { Component, Inject } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import jwtDecode from "jwt-decode";
-import { TokenService } from "../../services/token/token.service";
-import { type CustomTokenPayloadUsername } from "../../types";
 import { PostsService } from "../../services/posts/posts.service";
 import { UiService } from "../../services/ui/ui.service";
+import { UserService } from "../../services/user/user.service";
 
 @Component({
   selector: "app-post-form",
@@ -60,15 +58,13 @@ export class PostFormComponent {
     @Inject(FormBuilder) private readonly fb: FormBuilder,
     @Inject(UiService) private readonly uiService: UiService,
     @Inject(PostsService) private readonly postsService: PostsService,
-    @Inject(TokenService) private readonly tokenService: TokenService
+    @Inject(UserService) private readonly userService: UserService
   ) {}
 
   onSubmit() {
     this.uiService.showLoading();
 
-    const token = this.tokenService.fetchToken();
-
-    const { username, sub }: CustomTokenPayloadUsername = jwtDecode(token!);
+    const { username, sub } = this.userService.checkUser();
 
     const formData = new FormData();
 
