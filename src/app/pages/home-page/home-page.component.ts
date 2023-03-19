@@ -11,13 +11,5 @@ import { UserService } from "../../services/user/user.service";
 export class HomePageComponent {
   isLogged$: Observable<boolean> = this.userService.getIsLogged();
 
-  constructor(
-    @Inject(UserService) private readonly userService: UserService,
-    @Inject(UiService) private readonly uiService: UiService
-  ) {}
-
-  logoutUser() {
-    this.userService.logout();
-    this.uiService.redirectUser("");
-  }
+  constructor(@Inject(UserService) private readonly userService: UserService) {}
 }
