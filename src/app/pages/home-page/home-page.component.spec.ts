@@ -3,9 +3,6 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { provideMockStore } from "@ngrx/store/testing";
 import { render, screen } from "@testing-library/angular";
 import "@testing-library/jest-dom";
-import userEvent from "@testing-library/user-event";
-import { type Observable, of } from "rxjs";
-import { UserService } from "../../services/user/user.service";
 import { selectIsLogged } from "../../store/user/user.reducer";
 import { HomePageComponent } from "./home-page.component";
 
