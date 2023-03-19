@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
-import { type Post } from "../store/posts/types";
-import { loadPostById } from "./post.actions";
+import { type Post } from "../posts/types";
+import { loadPost } from "./post.actions";
 
 export const initialState: Post = {
   backupImage: "",
@@ -19,7 +19,7 @@ export const postFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(
-      loadPostById,
+      loadPost,
       (currentState, { payload }): Post => ({
         ...payload,
       })

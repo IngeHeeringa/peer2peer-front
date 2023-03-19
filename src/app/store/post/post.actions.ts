@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
-import { type Post } from "../store/posts/types";
+import { type Post } from "../posts/types";
 
-export const loadPostById = createAction(
+export const loadPost = createAction(
   "[Posts] Load Post",
   props<{ payload: Post }>()
 );
