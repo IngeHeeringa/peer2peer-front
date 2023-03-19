@@ -10,6 +10,7 @@ import { createMockStore } from "../../spec/mockStore";
 import { Store } from "@ngrx/store";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { throwError } from "rxjs";
 
 describe("Given a User Service", () => {
   let userService: UserService;
@@ -163,8 +164,16 @@ describe("Given a User Service", () => {
       const mockError = { error: { error: "Wrong credentials" } };
       const spy = jest.spyOn(uiService, "showErrorModal");
 
-      userService.handleError(mockError as HttpErrorResponse, uiService);
+      const result = userService.handleError(
+        mockError as HttpErrorResponse,
+        uiService
+      );
       expect(spy).toHaveBeenCalledWith(mockError.error.error);
+      result.subscribe({
+        error(error) {
+          expect(error).toEqual(mockError);
+        },
+      });
 
       spy.mockRestore();
     });

@@ -71,8 +71,16 @@ describe("Given a Posts Service", () => {
       const mockError = { error: { error: "Could not retrieve any posts" } };
       const spy = jest.spyOn(uiService, "showErrorModal");
 
-      postsService.handleError(mockError as HttpErrorResponse, uiService);
+      const result = postsService.handleError(
+        mockError as HttpErrorResponse,
+        uiService
+      );
       expect(spy).toHaveBeenCalledWith(mockError.error.error);
+      result.subscribe({
+        error(error) {
+          expect(error).toEqual(mockError);
+        },
+      });
 
       spy.mockRestore();
     });
