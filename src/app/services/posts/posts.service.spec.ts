@@ -12,6 +12,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { PostsService } from "./posts.service";
 import { deletePostById, loadPosts } from "../../store/posts/posts.actions";
+import { loadPost } from "../../store/post/post.actions";
 
 describe("Given a Posts Service", () => {
   let postsService: PostsService;
@@ -66,38 +67,6 @@ describe("Given a Posts Service", () => {
     });
   });
 
-  describe("When an HttpErrorResponse with an error field is thrown", () => {
-    test("Then it should call the showErrorModal method of the uiService", () => {
-      const mockError = { error: { error: "Could not retrieve any posts" } };
-      const spy = jest.spyOn(uiService, "showErrorModal");
-
-      const result = postsService.handleError(
-        mockError as HttpErrorResponse,
-        uiService
-      );
-      expect(spy).toHaveBeenCalledWith(mockError.error.error);
-      result.subscribe({
-        error(error) {
-          expect(error).toEqual(mockError);
-        },
-      });
-
-      spy.mockRestore();
-    });
-  });
-
-  describe("When an HttpErrorResponse with a message field is thrown", () => {
-    test("Then it should call the showErrorModal method of the uiService", () => {
-      const mockError = { error: "error", message: "Something went wrong" };
-      const spy = jest.spyOn(uiService, "showErrorModal");
-
-      postsService.handleError(mockError as HttpErrorResponse, uiService);
-      expect(spy).toHaveBeenCalledWith(mockError.message);
-
-      spy.mockRestore();
-    });
-  });
-
   describe("When its loadPosts method is invoked and fails", () => {
     test("Then it should call its handleError method", () => {
       const errorEvent = new ProgressEvent("error");
@@ -107,6 +76,72 @@ describe("Given a Posts Service", () => {
       postsService.loadPosts();
 
       const req = httpMock.expectOne(`${postsService.postsUrl}`);
+      req.error(errorEvent);
+
+      expect(spy).toHaveBeenCalled();
+
+      spy.mockRestore();
+    });
+  });
+
+  describe("When its loadPost method is invoked and succeeds", () => {
+    const mockResponse = {
+      projectTitle: "Mock Project",
+      backupImage: "url",
+      shortDescription: "Mock short description",
+      fullDescription: "Mock full description",
+      stack: "Mock Stack",
+      technologies: ["Mock", "Test", "Fake"],
+      yearsOfExperience: "<1 year",
+      creator: "Mock Creator",
+      id: "1",
+    };
+    test("Then it should dispatch a loadPost action with the post payload", () => {
+      const spy = jest.spyOn(store, "dispatch");
+
+      postsService.loadPost(mockResponse.id);
+      const req = httpMock.expectOne(
+        `${postsService.postsUrl}/${mockResponse.id}`
+      );
+      req.flush(mockResponse);
+
+      expect(spy).toHaveBeenCalledWith(loadPost({ payload: mockResponse }));
+
+      spy.mockRestore();
+    });
+
+    test("Then it should make a GET request to the posts endpoint", () => {
+      postsService.loadPost(mockResponse.id);
+
+      const req = httpMock.expectOne(
+        `${postsService.postsUrl}/${mockResponse.id}`
+      );
+      expect(req.request.method).toEqual("GET");
+    });
+  });
+
+  describe("When its loadPost method is invoked and fails", () => {
+    const mockResponse = {
+      projectTitle: "Mock Project",
+      backupImage: "url",
+      shortDescription: "Mock short description",
+      fullDescription: "Mock full description",
+      stack: "Mock Stack",
+      technologies: ["Mock", "Test", "Fake"],
+      yearsOfExperience: "<1 year",
+      creator: "Mock Creator",
+      id: "1",
+    };
+    test("Then it should call its handleError method", () => {
+      const errorEvent = new ProgressEvent("error");
+
+      const spy = jest.spyOn(postsService, "handleError");
+
+      postsService.loadPost(mockResponse.id);
+
+      const req = httpMock.expectOne(
+        `${postsService.postsUrl}/${mockResponse.id}`
+      );
       req.error(errorEvent);
 
       expect(spy).toHaveBeenCalled();
@@ -191,6 +226,38 @@ describe("Given a Posts Service", () => {
       const req = httpMock.expectOne(`${postsService.postsUrl}/submit`);
 
       req.error(errorEvent);
+
+      spy.mockRestore();
+    });
+  });
+
+  describe("When an HttpErrorResponse with an error field is thrown", () => {
+    test("Then it should call the showErrorModal method of the uiService", () => {
+      const mockError = { error: { error: "Could not retrieve any posts" } };
+      const spy = jest.spyOn(uiService, "showErrorModal");
+
+      const result = postsService.handleError(
+        mockError as HttpErrorResponse,
+        uiService
+      );
+      expect(spy).toHaveBeenCalledWith(mockError.error.error);
+      result.subscribe({
+        error(error) {
+          expect(error).toEqual(mockError);
+        },
+      });
+
+      spy.mockRestore();
+    });
+  });
+
+  describe("When an HttpErrorResponse with a message field is thrown", () => {
+    test("Then it should call the showErrorModal method of the uiService", () => {
+      const mockError = { error: "error", message: "Something went wrong" };
+      const spy = jest.spyOn(uiService, "showErrorModal");
+
+      postsService.handleError(mockError as HttpErrorResponse, uiService);
+      expect(spy).toHaveBeenCalledWith(mockError.message);
 
       spy.mockRestore();
     });
