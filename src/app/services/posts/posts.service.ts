@@ -5,10 +5,11 @@ import { catchError, type Observable, throwError } from "rxjs";
 import { deletePostById, loadPosts } from "../../store/posts/posts.actions";
 import { selectPostsState } from "../../store/posts/posts.reducer";
 import { environment } from "../../../environments/environment";
-import { type ApiResponse } from "../../store/posts/types";
+import { type Post, type ApiResponse } from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
 import { type CreatePostResponse } from "../../types";
 import { TokenService } from "../token/token.service";
+import { loadPost } from "../../store/post/post.actions";
 
 @Injectable({
   providedIn: "root",
@@ -36,6 +37,20 @@ export class PostsService {
       const { posts } = data;
 
       this.store.dispatch(loadPosts({ payload: posts }));
+    });
+  }
+
+  loadPost(id: string) {
+    const post$ = this.http
+      .get<Post>(`${this.postsUrl}/${id}`)
+      .pipe(
+        catchError((error) =>
+          this.handleError(error as HttpErrorResponse, this.uiService)
+        )
+      );
+
+    post$.subscribe((data: Post) => {
+      this.store.dispatch(loadPost({ payload: data }));
     });
   }
 
