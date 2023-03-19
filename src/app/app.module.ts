@@ -25,6 +25,7 @@ import { PostComponent } from "./components/post/post.component";
 import { PostsComponent } from "./components/posts/posts.component";
 import { PostFormComponent } from "./components/post-form/post-form.component";
 import { SubmitPageComponent } from "./pages/submit-page/submit-page.component";
+import { DetailsPageComponent } from "./pages/details-page/details-page.component";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { SubmitPageComponent } from "./pages/submit-page/submit-page.component";
     PostsComponent,
     PostFormComponent,
     SubmitPageComponent,
+    DetailsPageComponent,
   ],
   imports: [
     BrowserModule,
