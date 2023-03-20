@@ -6,7 +6,7 @@
         <span class="navigation-text">Home</span>
         <mat-icon aria-hidden="false" aria-label="Home icon" fontIcon="home" class="navigation-icon"></mat-icon></a>
     </li>
-    <li *ngIf="isLogged$ | async"><a class="navigation__link" routerLink="/new-post"
+    <li *ngIf="isLogged$ | async"><a class="navigation__link" routerLink="/posts/new-post"
         routerLinkActive="navigation__link--active" [routerLinkActiveOptions]="{exact:
                 true}" aria-label="New post">
         <span class="navigation-text">New post</span>

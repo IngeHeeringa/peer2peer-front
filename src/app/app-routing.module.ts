@@ -19,7 +19,7 @@ const routes: Routes = [
     component: RegisterPageComponent,
   },
   {
-    path: ":id",
+    path: "posts/details/:id",
     component: DetailsPageComponent,
   },
   {
@@ -27,8 +27,7 @@ const routes: Routes = [
     component: SubmitPageComponent,
     canActivate: [AuthGuard],
   },
-  { path: "**", redirectTo: "/404" },
-  { path: "404", component: NotFoundPageComponent },
+  { path: "**", component: NotFoundPageComponent },
 ];
 
 @NgModule({

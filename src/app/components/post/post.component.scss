@@ -10,6 +10,18 @@
   background-color: map-get(variables.$primary-color, "main");
 }
 
+.details-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-family: variables.$display-font;
+  color: map-get(variables.$primary-color, "main");
+  background-color: map-get(variables.$accent-color, "main");
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 1;
+}
+
 .delete-button {
   position: absolute;
   top: 15px;
