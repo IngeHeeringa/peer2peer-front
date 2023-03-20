@@ -19,7 +19,7 @@ import { loadPost } from "../../store/post/post.actions";
   providedIn: "root",
 })
 export class PostsService {
-  public postsUrl = `http://localhost:4000${environment.paths.posts}`;
+  public postsUrl = `${environment.apiUrl}${environment.paths.posts}`;
 
   constructor(
     @Inject(HttpClient) private readonly http: HttpClient,
@@ -53,8 +53,8 @@ export class PostsService {
         )
       );
 
-    post$.subscribe((data: ApiResponsePost) => {
-      this.store.dispatch(loadPost({ payload: data.post }));
+    post$.subscribe((post: ApiResponsePost) => {
+      this.store.dispatch(loadPost({ payload: post.post }));
     });
 
     return post$;
