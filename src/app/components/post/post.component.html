@@ -1,4 +1,5 @@
 <article class="post">
+  <a class="details-button" routerLink="posts/details/{{post.id}}">Details</a>
   <button class="delete-button" (click)="deletePost()" *ngIf="this.allowAction()"><mat-icon aria-hidden="false"
       aria-label="Delete icon" fontIcon="delete" color="primary" class="delete-button__icon"></mat-icon></button>
   <div class="gradient-overlay">

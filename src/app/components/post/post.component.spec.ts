@@ -92,6 +92,18 @@ describe("Given a Post component", () => {
 
       expect(heading).toBeInTheDocument();
     });
+
+    test("Then it should show a button to view the post's details", async () => {
+      const detailsButtonText = /details/i;
+
+      await renderComponent();
+
+      const detailsButton = screen.getByRole("link", {
+        name: detailsButtonText,
+      });
+
+      expect(detailsButton).toBeInTheDocument();
+    });
   });
 
   describe("When the user is logged and the post is theirs", () => {
