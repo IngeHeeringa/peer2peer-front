@@ -1,9 +1,9 @@
 import { Component, Inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { type Observable } from "rxjs";
+import { type Post } from "src/app/store/posts/types";
 import { PostsService } from "../../services/posts/posts.service";
 import { UiService } from "../../services/ui/ui.service";
-import { type ApiResponsePost, type Post } from "../../store/posts/types";
 
 @Component({
   selector: "app-details-page",
