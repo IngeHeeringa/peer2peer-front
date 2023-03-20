@@ -26,6 +26,7 @@ import { PostsComponent } from "./components/posts/posts.component";
 import { PostFormComponent } from "./components/post-form/post-form.component";
 import { SubmitPageComponent } from "./pages/submit-page/submit-page.component";
 import { DetailsPageComponent } from "./pages/details-page/details-page.component";
+import { PostModule } from "./store/post/post.module";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { DetailsPageComponent } from "./pages/details-page/details-page.componen
     HttpClientModule,
     UiModule,
     PostsModule,
+    PostModule,
   ],
   providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
   bootstrap: [AppComponent],
