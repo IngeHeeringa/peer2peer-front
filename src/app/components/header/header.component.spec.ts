@@ -10,6 +10,28 @@ import { type Observable, of } from "rxjs";
 import userEvent from "@testing-library/user-event";
 import { NavigationComponent } from "../navigation/navigation.component";
 import { AppModule } from "../../app.module";
+import { TokenService } from "../../services/token/token.service";
+
+const mockUserServiceTrue = {
+  getIsLogged: jest.fn().mockReturnValue(of(true)),
+  checkUser: jest.fn().mockReturnValue({ username: "Mock Creator" }),
+};
+const mockUserServiceFalse = {
+  getIsLogged: jest.fn().mockReturnValue(of(false)),
+  checkUser: jest.fn().mockImplementation(() => {
+    throw new Error("Missing token");
+  }),
+};
+const mockTokenServiceTrue = {
+  fetchToken: jest
+    .fn()
+    .mockReturnValue(
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDA3MTRhZDM5MzE2MjBhYWI4NTI4N2MiLCJlbWFpbCI6Im1vY2tAdXNlci5jb20iLCJ1c2VybmFtZSI6Ik1vY2sgQ3JlYXRvciIsImlhdCI6MTY3OTEzNjkwMSwiZXhwIjoxNjc5MjIzMzAxfQ.346MS01N4mT-ax0jBg9ehIHbij-IbO1mLThSQ-KqYzk"
+    ),
+};
+const mockTokenServiceFalse = {
+  fetchToken: jest.fn().mockRejectedValue(undefined),
+};
 
 describe("Given a Header component", () => {
   describe("When rendered", () => {
@@ -23,6 +45,8 @@ describe("Given a Header component", () => {
           provideMockStore({
             selectors: [{ selector: selectIsLogged, value: false }],
           }),
+          { provide: UserService, useValue: mockUserServiceTrue },
+          { provide: TokenService, useValue: mockTokenServiceTrue },
         ],
       });
 
@@ -44,6 +68,26 @@ describe("Given a Header component", () => {
         ],
       });
     };
+
+    test("Then it should not show the user's username", async () => {
+      const expectedUserInformation = /logged in as/;
+
+      await render(HeaderComponent, {
+        declarations: [NavigationComponent],
+        imports: [AppModule, HttpClientTestingModule, MatSnackBarModule],
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectIsLogged, value: false }],
+          }),
+          { provide: UserService, useValue: mockUserServiceFalse },
+          { provide: TokenService, useValue: mockTokenServiceFalse },
+        ],
+      });
+
+      const userInformation = screen.queryByText(expectedUserInformation);
+
+      expect(userInformation).not.toBeInTheDocument();
+    });
 
     test("Then it should show a call to action to sign up", async () => {
       const ctaText = /sign up/i;
@@ -75,9 +119,21 @@ describe("Given a Header component", () => {
           provideMockStore({
             selectors: [{ selector: selectIsLogged, value: true }],
           }),
+          { provide: UserService, useValue: mockUserServiceTrue },
+          { provide: TokenService, useValue: mockTokenServiceTrue },
         ],
       });
     };
+
+    test("Then it should show the user's username", async () => {
+      const expectedUserInformation = /logged in as/i;
+
+      await renderComponent();
+
+      const userInformation = screen.getByText(expectedUserInformation);
+
+      expect(userInformation).toBeInTheDocument();
+    });
 
     test("Then it should show a button to log out", async () => {
       const buttonText = /log out/i;
@@ -94,6 +150,7 @@ describe("Given a Header component", () => {
     const isLogged$: Observable<boolean> = of(true);
     const mockUserService = {
       getIsLogged: jest.fn(() => isLogged$),
+      checkUser: jest.fn().mockReturnValue({ username: "Mock Creator" }),
       logout: jest.fn(),
     };
     const renderComponent = async () => {
