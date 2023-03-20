@@ -10,6 +10,7 @@ import { type Posts } from "../../store/posts/types";
 })
 export class PostsComponent {
   posts$!: Observable<Posts>;
+  posts!: Posts;
 
   constructor(
     @Inject(PostsService) private readonly postsService: PostsService
@@ -17,6 +18,14 @@ export class PostsComponent {
 
   ngOnInit(): void {
     this.postsService.loadPosts();
-    this.posts$ = this.postsService.getPosts();
+    this.posts$ = this.postsService.getPostsState();
+    this.checkPosts();
+  }
+
+  checkPosts() {
+    const posts = this.postsService.getPostsState();
+    posts.subscribe((data) => {
+      this.posts = data;
+    });
   }
 }
