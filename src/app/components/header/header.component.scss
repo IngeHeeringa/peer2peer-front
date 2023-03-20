@@ -19,6 +19,10 @@
   align-items: center;
   gap: 30px;
 
+  &__user {
+    display: none;
+  }
+
   &__logo {
     width: 80px;
     height: auto;
@@ -56,6 +60,20 @@
   }
 
   .header {
+    &__user {
+      display: block;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 1rem;
+      background-color: map-get(variables.$primary-color, "main");
+      color: map-get(variables.$accent-color, "main");
+    }
+
+    &__username {
+      font-family: variables.$display-font;
+      color: variables.$secondary-color;
+    }
+
     &__cta {
       border: 2px solid map-get(variables.$primary-color, "main");
       color: map-get(variables.$primary-color, "main");

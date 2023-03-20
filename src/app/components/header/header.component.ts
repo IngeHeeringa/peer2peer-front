@@ -19,6 +19,12 @@ export class HeaderComponent {
     @Inject(UiService) private readonly uiService: UiService
   ) {}
 
+  getUserName() {
+    const { username } = this.userService.checkUser();
+
+    return username;
+  }
+
   logoutUser() {
     this.userService.logout();
     this.uiService.redirectUser("");
