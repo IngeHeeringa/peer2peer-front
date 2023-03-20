@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { type Observable } from "rxjs";
 import { PostsService } from "../../services/posts/posts.service";
@@ -11,7 +11,7 @@ import { type ApiResponsePost, type Post } from "../../store/posts/types";
   styleUrls: ["./details-page.component.scss"],
 })
 export class DetailsPageComponent {
-  post$!: Observable<ApiResponsePost>;
+  post$!: Observable<Post>;
   post!: Post;
   params!: Record<string, string>;
 
@@ -22,19 +22,17 @@ export class DetailsPageComponent {
   ) {}
 
   ngOnInit(): void {
-    this.showPost();
-  }
-
-  showPost() {
     this.uiService.showLoading();
     this.route.params.subscribe((params) => {
       this.params = params;
-      this.post$ = this.postsService.loadPost(this.params["id"]);
+      this.postsService.loadPostById(this.params["id"]);
+    });
 
-      this.post$.subscribe((data) => {
-        this.post = data.post;
-        this.uiService.hideLoading();
-      });
+    this.post$ = this.postsService.getPost();
+
+    this.post$.subscribe((data) => {
+      this.post = data;
+      this.uiService.hideLoading();
     });
   }
 }

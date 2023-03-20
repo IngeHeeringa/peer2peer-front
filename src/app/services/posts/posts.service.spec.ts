@@ -101,7 +101,7 @@ describe("Given a Posts Service", () => {
     test("Then it should dispatch a loadPost action with the post payload", () => {
       const spy = jest.spyOn(store, "dispatch");
 
-      postsService.loadPost(mockResponse.post.id);
+      postsService.loadPostById(mockResponse.post.id);
       const req = httpMock.expectOne(
         `${postsService.postsUrl}/${mockResponse.post.id}`
       );
@@ -115,7 +115,7 @@ describe("Given a Posts Service", () => {
     });
 
     test("Then it should make a GET request to the posts endpoint", () => {
-      postsService.loadPost(mockResponse.post.id);
+      postsService.loadPostById(mockResponse.post.id);
 
       const req = httpMock.expectOne(
         `${postsService.postsUrl}/${mockResponse.post.id}`
@@ -138,12 +138,13 @@ describe("Given a Posts Service", () => {
         id: "1",
       },
     };
+
     test("Then it should call its handleError method", () => {
       const errorEvent = new ProgressEvent("error");
 
       const spy = jest.spyOn(postsService, "handleError");
 
-      postsService.loadPost(mockResponse.post.id);
+      postsService.loadPostById(mockResponse.post.id);
 
       const req = httpMock.expectOne(
         `${postsService.postsUrl}/${mockResponse.post.id}`

@@ -44,7 +44,7 @@ export class PostsService {
     });
   }
 
-  loadPost(id: string) {
+  loadPostById(id: string) {
     const post$ = this.http
       .get<ApiResponsePost>(`${this.postsUrl}/${id}`)
       .pipe(
@@ -53,15 +53,17 @@ export class PostsService {
         )
       );
 
-    post$.subscribe((post: ApiResponsePost) => {
-      this.store.dispatch(loadPost({ payload: post.post }));
+    post$.subscribe((data) => {
+      this.store.dispatch(loadPost({ payload: data.post }));
     });
-
-    return post$;
   }
 
   getPosts() {
     return this.store.select(selectPostsState);
+  }
+
+  getPost() {
+    return this.store.select(selectPostState);
   }
 
   deletePostById(id: string) {

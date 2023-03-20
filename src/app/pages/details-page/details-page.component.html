@@ -1,4 +1,4 @@
-<main class="post-detail">
+<main class="post-detail" *ngIf="post">
   <h1 class="post-detail__project-title">{{post.projectTitle}}</h1>
   <img src={{post.backupImage}} alt={{post.projectTitle}} width="465" height="383" class="post-detail__image">
   <span class="post-detail__creator">Posted by <span
