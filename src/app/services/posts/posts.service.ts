@@ -4,8 +4,12 @@ import { Store } from "@ngrx/store";
 import { catchError, type Observable, throwError } from "rxjs";
 import { deletePostById, loadPosts } from "../../store/posts/posts.actions";
 import { selectPostsState } from "../../store/posts/posts.reducer";
+import { selectPostState } from "../../store/post/post.reducer";
 import { environment } from "../../../environments/environment";
-import { type Post, type ApiResponse } from "../../store/posts/types";
+import {
+  type ApiResponsePosts,
+  type ApiResponsePost,
+} from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
 import { type CreatePostResponse } from "../../types";
 import { TokenService } from "../token/token.service";
@@ -15,7 +19,7 @@ import { loadPost } from "../../store/post/post.actions";
   providedIn: "root",
 })
 export class PostsService {
-  public postsUrl = `${environment.apiUrl}${environment.paths.posts}`;
+  public postsUrl = `http://localhost:4000${environment.paths.posts}`;
 
   constructor(
     @Inject(HttpClient) private readonly http: HttpClient,
@@ -26,14 +30,14 @@ export class PostsService {
 
   loadPosts() {
     const posts$ = this.http
-      .get<ApiResponse>(this.postsUrl)
+      .get<ApiResponsePosts>(this.postsUrl)
       .pipe(
         catchError((error) =>
           this.handleError(error as HttpErrorResponse, this.uiService)
         )
       );
 
-    posts$.subscribe((data: ApiResponse) => {
+    posts$.subscribe((data: ApiResponsePosts) => {
       const { posts } = data;
 
       this.store.dispatch(loadPosts({ payload: posts }));
@@ -42,19 +46,21 @@ export class PostsService {
 
   loadPost(id: string) {
     const post$ = this.http
-      .get<Post>(`${this.postsUrl}/${id}`)
+      .get<ApiResponsePost>(`${this.postsUrl}/${id}`)
       .pipe(
         catchError((error) =>
           this.handleError(error as HttpErrorResponse, this.uiService)
         )
       );
 
-    post$.subscribe((data: Post) => {
-      this.store.dispatch(loadPost({ payload: data }));
+    post$.subscribe((data: ApiResponsePost) => {
+      this.store.dispatch(loadPost({ payload: data.post }));
     });
+
+    return post$;
   }
 
-  getPostsState() {
+  getPosts() {
     return this.store.select(selectPostsState);
   }
 

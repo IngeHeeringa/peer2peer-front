@@ -17,9 +17,8 @@ export class PostsComponent {
 
   ngOnInit(): void {
     try {
-      this.posts$ = this.postsService.getPostsState();
-
       this.postsService.loadPosts();
+      this.posts$ = this.postsService.getPosts();
     } catch (error) {}
   }
 }
