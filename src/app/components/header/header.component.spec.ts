@@ -15,12 +15,14 @@ import { TokenService } from "../../services/token/token.service";
 const mockUserServiceTrue = {
   getIsLogged: jest.fn().mockReturnValue(of(true)),
   checkUser: jest.fn().mockReturnValue({ username: "Mock Creator" }),
+  logout: jest.fn(),
 };
 const mockUserServiceFalse = {
   getIsLogged: jest.fn().mockReturnValue(of(false)),
   checkUser: jest.fn().mockImplementation(() => {
     throw new Error("Missing token");
   }),
+  logout: jest.fn(),
 };
 const mockTokenServiceTrue = {
   fetchToken: jest
@@ -65,6 +67,8 @@ describe("Given a Header component", () => {
           provideMockStore({
             selectors: [{ selector: selectIsLogged, value: false }],
           }),
+          { provide: UserService, useValue: mockUserServiceFalse },
+          { provide: TokenService, useValue: mockTokenServiceFalse },
         ],
       });
     };
@@ -72,17 +76,7 @@ describe("Given a Header component", () => {
     test("Then it should not show the user's username", async () => {
       const expectedUserInformation = /logged in as/;
 
-      await render(HeaderComponent, {
-        declarations: [NavigationComponent],
-        imports: [AppModule, HttpClientTestingModule, MatSnackBarModule],
-        providers: [
-          provideMockStore({
-            selectors: [{ selector: selectIsLogged, value: false }],
-          }),
-          { provide: UserService, useValue: mockUserServiceFalse },
-          { provide: TokenService, useValue: mockTokenServiceFalse },
-        ],
-      });
+      await renderComponent();
 
       const userInformation = screen.queryByText(expectedUserInformation);
 
@@ -147,21 +141,16 @@ describe("Given a Header component", () => {
   });
 
   describe("When the user clicks on the 'Logout' button", () => {
-    const isLogged$: Observable<boolean> = of(true);
-    const mockUserService = {
-      getIsLogged: jest.fn(() => isLogged$),
-      checkUser: jest.fn().mockReturnValue({ username: "Mock Creator" }),
-      logout: jest.fn(),
-    };
     const renderComponent = async () => {
       await render(HeaderComponent, {
         declarations: [NavigationComponent],
         imports: [AppModule, HttpClientTestingModule, MatSnackBarModule],
         providers: [
           provideMockStore({
-            selectors: [{ selector: selectIsLogged, value: isLogged$ }],
+            selectors: [{ selector: selectIsLogged, value: true }],
           }),
-          { provide: UserService, useValue: mockUserService },
+          { provide: UserService, useValue: mockUserServiceTrue },
+          { provide: TokenService, useValue: mockTokenServiceTrue },
         ],
       });
     };
@@ -174,7 +163,7 @@ describe("Given a Header component", () => {
 
       await userEvent.click(logoutButton);
 
-      expect(mockUserService.logout).toHaveBeenCalled();
+      expect(mockUserServiceTrue.logout).toHaveBeenCalled();
     });
   });
 });
