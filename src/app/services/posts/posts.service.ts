@@ -58,11 +58,11 @@ export class PostsService {
     });
   }
 
-  getPosts() {
+  getPostsState() {
     return this.store.select(selectPostsState);
   }
 
-  getPost() {
+  getPostState() {
     return this.store.select(selectPostState);
   }
 

@@ -28,7 +28,7 @@ export class DetailsPageComponent {
       this.postsService.loadPostById(this.params["id"]);
     });
 
-    this.post$ = this.postsService.getPost();
+    this.post$ = this.postsService.getPostState();
 
     this.post$.subscribe((data) => {
       this.post = data;

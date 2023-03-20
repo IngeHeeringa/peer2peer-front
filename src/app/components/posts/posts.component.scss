@@ -1,3 +1,5 @@
+@use "../../../styles/partials/_variables.scss";
+
 :host {
   width: 100%;
 }
@@ -7,4 +9,15 @@
   grid-template-columns: repeat(auto-fit, 312px);
   gap: 40px;
   justify-content: center;
+}
+
+.no-posts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: variables.$secondary-color;
+
+  &__text {
+    font-size: 1.5rem;
+  }
 }

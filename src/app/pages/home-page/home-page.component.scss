@@ -67,10 +67,6 @@
   align-items: center;
   gap: 40px;
   padding: 75px 30px;
-
-  &__title {
-    align-self: center;
-  }
 }
 
 @media (min-width: 768px) {
@@ -88,6 +84,12 @@
       width: 150px;
       height: 52px;
       border-radius: 40px;
+    }
+  }
+
+  .main-section {
+    &__title {
+      align-self: center;
     }
   }
 }

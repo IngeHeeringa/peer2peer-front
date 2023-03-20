@@ -1,3 +1,6 @@
-<ul class="posts">
+<ul *ngIf="posts.length > 0; else noPosts" class="posts">
   <li *ngFor="let post of posts$ | async"><app-post [post]="post"></app-post></li>
 </ul>
+<ng-template #noPosts>
+  <div class="no-posts"><span class="no-posts__text">There are currently no posts.</span></div>
+</ng-template>
