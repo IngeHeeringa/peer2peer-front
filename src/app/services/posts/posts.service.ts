@@ -4,8 +4,12 @@ import { Store } from "@ngrx/store";
 import { catchError, type Observable, throwError } from "rxjs";
 import { deletePostById, loadPosts } from "../../store/posts/posts.actions";
 import { selectPostsState } from "../../store/posts/posts.reducer";
+import { selectPostState } from "../../store/post/post.reducer";
 import { environment } from "../../../environments/environment";
-import { type Post, type ApiResponse } from "../../store/posts/types";
+import {
+  type ApiResponsePosts,
+  type ApiResponsePost,
+} from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
 import { type CreatePostResponse } from "../../types";
 import { TokenService } from "../token/token.service";
@@ -26,36 +30,40 @@ export class PostsService {
 
   loadPosts() {
     const posts$ = this.http
-      .get<ApiResponse>(this.postsUrl)
+      .get<ApiResponsePosts>(this.postsUrl)
       .pipe(
         catchError((error) =>
           this.handleError(error as HttpErrorResponse, this.uiService)
         )
       );
 
-    posts$.subscribe((data: ApiResponse) => {
+    posts$.subscribe((data: ApiResponsePosts) => {
       const { posts } = data;
 
       this.store.dispatch(loadPosts({ payload: posts }));
     });
   }
 
-  loadPost(id: string) {
+  loadPostById(id: string) {
     const post$ = this.http
-      .get<Post>(`${this.postsUrl}/${id}`)
+      .get<ApiResponsePost>(`${this.postsUrl}/${id}`)
       .pipe(
         catchError((error) =>
           this.handleError(error as HttpErrorResponse, this.uiService)
         )
       );
 
-    post$.subscribe((data: Post) => {
-      this.store.dispatch(loadPost({ payload: data }));
+    post$.subscribe((data) => {
+      this.store.dispatch(loadPost({ payload: data.post }));
     });
   }
 
-  getPostsState() {
+  getPosts() {
     return this.store.select(selectPostsState);
+  }
+
+  getPost() {
+    return this.store.select(selectPostState);
   }
 
   deletePostById(id: string) {

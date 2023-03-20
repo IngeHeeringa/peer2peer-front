@@ -12,6 +12,10 @@ export interface Post {
 
 export type Posts = Post[];
 
-export interface ApiResponse {
+export interface ApiResponsePosts {
   posts: Posts;
+}
+
+export interface ApiResponsePost {
+  post: Post;
 }

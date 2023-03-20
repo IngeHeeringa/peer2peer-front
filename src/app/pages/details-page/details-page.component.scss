@@ -1,0 +1,102 @@
+@use "../../../styles/partials/variables";
+
+.post-detail {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  &__image {
+    width: 100%;
+    object-fit: cover;
+    height: 383px;
+  }
+
+  &__project-title {
+    align-self: flex-start;
+    padding: 85px 30px 0 30px;
+  }
+
+  &__creator {
+    color: variables.$secondary-color;
+    font-weight: 300;
+    align-self: flex-end;
+    font-size: 1rem;
+    padding: 5px 0 15px 0;
+
+    &--username {
+      font-weight: 700;
+      color: map-get(variables.$accent-color, "main");
+      padding-right: 30px;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 30px 85px 30px;
+    font-size: 1rem;
+    font-weight: 300;
+    color: variables.$secondary-color;
+  }
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid map-get(variables.$accent-color, "main");
+
+  &__label {
+    font-weight: 700;
+  }
+
+  &__data {
+    text-align: right;
+  }
+
+  &__description {
+    line-height: 2rem;
+  }
+}
+
+.technologies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min-content, 70px));
+  row-gap: 10px;
+  column-gap: 20px;
+  justify-content: space-between;
+  font-size: 0.9rem;
+
+  &__technology {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 5px 8px;
+    border-radius: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .post-detail {
+    &__image {
+      position: absolute;
+      left: 0;
+      top: 80px;
+      width: 50%;
+      height: 80%;
+    }
+
+    &__project-title {
+      align-self: flex-end;
+    }
+
+    &__body {
+      width: 50%;
+      align-self: flex-end;
+    }
+  }
+}

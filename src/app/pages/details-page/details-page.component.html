@@ -1,0 +1,25 @@
+<main class="post-detail" *ngIf="post">
+  <h1 class="post-detail__project-title">{{post.projectTitle}}</h1>
+  <img src={{post.backupImage}} alt={{post.projectTitle}} width="465" height="383" class="post-detail__image">
+  <span class="post-detail__creator">Posted by <span
+      class="post-detail__creator post-detail__creator--username">@{{post.creator}}</span></span>
+  <div class="post-detail__body">
+    <div class="post-detail__info info">
+      <span class="info__label">Wants to build</span>
+      <span class="info__data">{{post.shortDescription}}</span>
+    </div>
+    <div class="post-detail__info info">
+      <span class="info__label">Stack</span>
+      <span class="info__data">{{post.stack}}</span>
+    </div>
+    <div class="post-detail__info info">
+      <span class="info__label">Experience</span>
+      <span class="info__data">{{post.yearsOfExperience}}</span>
+    </div>
+    <p class="info__description">{{post.fullDescription}}</p>
+    <div class="post-detail__technologies technologies">
+      <span *ngFor="let technology of post.technologies"
+        [className]="'technologies__technology' + ' ' + technology.replace(' ' && '.', '').replace('#', '-sharp').replace('++', '-plus-plus').toLowerCase()">{{technology}}</span>
+    </div>
+  </div>
+</main>

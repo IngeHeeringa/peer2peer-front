@@ -24,6 +24,7 @@ describe("Given an App component", () => {
     };
     const mockUserService = {
       getIsLogged: jest.fn(() => isLogged$),
+      checkUser: jest.fn().mockReturnValue({ username: "Mock Creator" }),
       login: jest.fn(),
       logout: jest.fn(),
     };

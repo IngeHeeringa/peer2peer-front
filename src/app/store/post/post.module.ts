@@ -5,4 +5,4 @@ import { postFeature } from "./post.reducer";
 @NgModule({
   imports: [StoreModule.forFeature(postFeature)],
 })
-export class PostsModule {}
+export class PostModule {}

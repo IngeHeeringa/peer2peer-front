@@ -86,35 +86,39 @@ describe("Given a Posts Service", () => {
 
   describe("When its loadPost method is invoked and succeeds", () => {
     const mockResponse = {
-      projectTitle: "Mock Project",
-      backupImage: "url",
-      shortDescription: "Mock short description",
-      fullDescription: "Mock full description",
-      stack: "Mock Stack",
-      technologies: ["Mock", "Test", "Fake"],
-      yearsOfExperience: "<1 year",
-      creator: "Mock Creator",
-      id: "1",
+      post: {
+        projectTitle: "Mock Project",
+        backupImage: "url",
+        shortDescription: "Mock short description",
+        fullDescription: "Mock full description",
+        stack: "Mock Stack",
+        technologies: ["Mock", "Test", "Fake"],
+        yearsOfExperience: "<1 year",
+        creator: "Mock Creator",
+        id: "1",
+      },
     };
     test("Then it should dispatch a loadPost action with the post payload", () => {
       const spy = jest.spyOn(store, "dispatch");
 
-      postsService.loadPost(mockResponse.id);
+      postsService.loadPostById(mockResponse.post.id);
       const req = httpMock.expectOne(
-        `${postsService.postsUrl}/${mockResponse.id}`
+        `${postsService.postsUrl}/${mockResponse.post.id}`
       );
       req.flush(mockResponse);
 
-      expect(spy).toHaveBeenCalledWith(loadPost({ payload: mockResponse }));
+      expect(spy).toHaveBeenCalledWith(
+        loadPost({ payload: mockResponse.post })
+      );
 
       spy.mockRestore();
     });
 
     test("Then it should make a GET request to the posts endpoint", () => {
-      postsService.loadPost(mockResponse.id);
+      postsService.loadPostById(mockResponse.post.id);
 
       const req = httpMock.expectOne(
-        `${postsService.postsUrl}/${mockResponse.id}`
+        `${postsService.postsUrl}/${mockResponse.post.id}`
       );
       expect(req.request.method).toEqual("GET");
     });
@@ -122,25 +126,28 @@ describe("Given a Posts Service", () => {
 
   describe("When its loadPost method is invoked and fails", () => {
     const mockResponse = {
-      projectTitle: "Mock Project",
-      backupImage: "url",
-      shortDescription: "Mock short description",
-      fullDescription: "Mock full description",
-      stack: "Mock Stack",
-      technologies: ["Mock", "Test", "Fake"],
-      yearsOfExperience: "<1 year",
-      creator: "Mock Creator",
-      id: "1",
+      post: {
+        projectTitle: "Mock Project",
+        backupImage: "url",
+        shortDescription: "Mock short description",
+        fullDescription: "Mock full description",
+        stack: "Mock Stack",
+        technologies: ["Mock", "Test", "Fake"],
+        yearsOfExperience: "<1 year",
+        creator: "Mock Creator",
+        id: "1",
+      },
     };
+
     test("Then it should call its handleError method", () => {
       const errorEvent = new ProgressEvent("error");
 
       const spy = jest.spyOn(postsService, "handleError");
 
-      postsService.loadPost(mockResponse.id);
+      postsService.loadPostById(mockResponse.post.id);
 
       const req = httpMock.expectOne(
-        `${postsService.postsUrl}/${mockResponse.id}`
+        `${postsService.postsUrl}/${mockResponse.post.id}`
       );
       req.error(errorEvent);
 

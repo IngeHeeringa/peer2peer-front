@@ -1,4 +1,7 @@
 import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { MatIconModule } from "@angular/material/icon";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { provideMockStore } from "@ngrx/store/testing";
 import { render } from "@testing-library/angular";
 import "@testing-library/jest-dom";
 import { of } from "rxjs";
@@ -10,12 +13,15 @@ describe("Given a Posts component", () => {
     const posts$ = of([{}, {}, {}]);
     const mockPostsService = {
       loadPosts: jest.fn(() => of({ posts$ })),
-      getPostsState: jest.fn(),
+      getPosts: jest.fn(),
     };
     const renderComponent = async () => {
       await render(PostsComponent, {
-        imports: [HttpClientTestingModule],
-        providers: [{ provide: PostsService, useValue: mockPostsService }],
+        imports: [HttpClientTestingModule, MatSnackBarModule, MatIconModule],
+        providers: [
+          provideMockStore(),
+          { provide: PostsService, useValue: mockPostsService },
+        ],
       });
     };
 
