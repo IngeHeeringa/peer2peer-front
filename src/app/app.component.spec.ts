@@ -1,7 +1,7 @@
 import { MatIconModule } from "@angular/material/icon";
 import { provideMockStore } from "@ngrx/store/testing";
 import { render } from "@testing-library/angular";
-import { type Observable, of } from "rxjs";
+import { of } from "rxjs";
 import { AppComponent } from "./app.component";
 import { AppModule } from "./app.module";
 import { HeaderComponent } from "./components/header/header.component";
