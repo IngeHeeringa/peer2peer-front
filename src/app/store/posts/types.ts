@@ -7,6 +7,7 @@ export interface Post {
   technologies: string[];
   yearsOfExperience: string;
   creator: string;
+  createdAt: Date;
   id: string;
 }
 

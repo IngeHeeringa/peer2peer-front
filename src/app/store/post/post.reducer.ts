@@ -11,6 +11,7 @@ export const initialState: Post = {
   technologies: [],
   yearsOfExperience: "",
   creator: "",
+  createdAt: new Date("2024-05-25"),
   id: "",
 };
 

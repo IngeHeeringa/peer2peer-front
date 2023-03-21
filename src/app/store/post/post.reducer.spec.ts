@@ -11,6 +11,7 @@ const post: Post = {
   technologies: ["Mock", "Test", "Fake"],
   yearsOfExperience: "<1 year",
   creator: "Mock Creator",
+  createdAt: new Date("2024-05-25"),
   id: "1",
 };
 
@@ -26,6 +27,7 @@ describe("Given a Post Reducer function", () => {
         technologies: [],
         yearsOfExperience: "",
         creator: "",
+        createdAt: new Date("2024-05-25"),
         id: "",
       };
       const expectedPostState: Post = {
@@ -37,6 +39,7 @@ describe("Given a Post Reducer function", () => {
         technologies: ["Mock", "Test", "Fake"],
         yearsOfExperience: "<1 year",
         creator: "Mock Creator",
+        createdAt: new Date("2024-05-25"),
         id: "1",
       };
 

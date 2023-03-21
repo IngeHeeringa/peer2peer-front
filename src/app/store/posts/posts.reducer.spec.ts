@@ -12,6 +12,7 @@ const posts: Posts = [
     technologies: ["Mock", "Test", "Fake"],
     yearsOfExperience: "<1 year",
     creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
     id: "1",
   },
   {
@@ -23,6 +24,7 @@ const posts: Posts = [
     technologies: ["Fake", "Test"],
     yearsOfExperience: "1-3 years",
     creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
     id: "2",
   },
 ];
@@ -41,6 +43,7 @@ describe("Given a Posts Reducer function", () => {
           technologies: ["Mock", "Test", "Fake"],
           yearsOfExperience: "<1 year",
           creator: "Mock Creator",
+          createdAt: new Date("2024-05-25"),
           id: "1",
         },
         {
@@ -52,6 +55,7 @@ describe("Given a Posts Reducer function", () => {
           technologies: ["Fake", "Test"],
           yearsOfExperience: "1-3 years",
           creator: "Mock Creator",
+          createdAt: new Date("2024-05-25"),
           id: "2",
         },
       ];
@@ -76,6 +80,7 @@ describe("Given a Posts Reducer function", () => {
           technologies: ["Mock", "Test", "Fake"],
           yearsOfExperience: "<1 year",
           creator: "Mock Creator",
+          createdAt: new Date("2024-05-25"),
           id: "1",
         },
         {
@@ -87,6 +92,7 @@ describe("Given a Posts Reducer function", () => {
           technologies: ["Fake", "Test"],
           yearsOfExperience: "1-3 years",
           creator: "Mock Creator",
+          createdAt: new Date("2024-05-25"),
           id: "2",
         },
       ];
@@ -100,6 +106,7 @@ describe("Given a Posts Reducer function", () => {
           technologies: ["Fake", "Test"],
           yearsOfExperience: "1-3 years",
           creator: "Mock Creator",
+          createdAt: new Date("2024-05-25"),
           id: "2",
         },
       ];

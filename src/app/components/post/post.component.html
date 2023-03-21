@@ -3,10 +3,11 @@
   <button class="delete-button" (click)="deletePost()" *ngIf="this.allowAction()"><mat-icon aria-hidden="false"
       aria-label="Delete icon" fontIcon="delete" color="primary" class="delete-button__icon"></mat-icon></button>
   <div class="gradient-overlay">
-    <img src={{post.backupImage}} alt={{post.projectTitle}} width="312" height="255" class="post__image">
+    <img src={{post.backupImage}} alt={{post.projectTitle}} width="312" height="255" loading="lazy" class="post__image">
   </div>
   <div class="post__body">
     <span class="post__creator">@{{post.creator}}</span>
+    <span class="post__creation-date">Posted on {{post.createdAt | date: "EEEE, MMM d"}}</span>
     <h2 class="post__project-title">{{post.projectTitle}}</h2>
     <div class="post__info info">
       <span class="info__label">Wants to build</span>

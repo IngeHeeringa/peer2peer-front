@@ -24,12 +24,16 @@
     align-self: flex-end;
     font-size: 1rem;
     padding: 5px 0 15px 0;
+    text-align: right;
 
     &--username {
       font-weight: 700;
       color: map-get(variables.$accent-color, "main");
-      padding-right: 30px;
     }
+  }
+
+  &__creator:not(.post-detail__creator--username) {
+    padding-right: 30px;
   }
 
   &__body {
