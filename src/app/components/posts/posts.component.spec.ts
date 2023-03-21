@@ -35,13 +35,108 @@ const mockPosts = [
     createdAt: new Date("2024-05-25"),
     id: "2",
   },
+  {
+    projectTitle: "Mock Project",
+    backupImage: "url",
+    shortDescription: "Mock short description",
+    fullDescription: "Mock full description",
+    stack: "Mock Stack",
+    technologies: ["Mock", "Test", "Fake"],
+    yearsOfExperience: "<1 year",
+    creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
+    id: "1",
+  },
+  {
+    projectTitle: "Mock Project",
+    backupImage: "url",
+    shortDescription: "Mock short description",
+    fullDescription: "Mock full description",
+    stack: "Mock Stack",
+    technologies: ["Mock", "Test", "Fake"],
+    yearsOfExperience: "<1 year",
+    creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
+    id: "2",
+  },
+  {
+    projectTitle: "Mock Project",
+    backupImage: "url",
+    shortDescription: "Mock short description",
+    fullDescription: "Mock full description",
+    stack: "Mock Stack",
+    technologies: ["Mock", "Test", "Fake"],
+    yearsOfExperience: "<1 year",
+    creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
+    id: "1",
+  },
+  {
+    projectTitle: "Mock Project",
+    backupImage: "url",
+    shortDescription: "Mock short description",
+    fullDescription: "Mock full description",
+    stack: "Mock Stack",
+    technologies: ["Mock", "Test", "Fake"],
+    yearsOfExperience: "<1 year",
+    creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
+    id: "2",
+  },
+  {
+    projectTitle: "Mock Project",
+    backupImage: "url",
+    shortDescription: "Mock short description",
+    fullDescription: "Mock full description",
+    stack: "Mock Stack",
+    technologies: ["Mock", "Test", "Fake"],
+    yearsOfExperience: "<1 year",
+    creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
+    id: "1",
+  },
+  {
+    projectTitle: "Mock Project",
+    backupImage: "url",
+    shortDescription: "Mock short description",
+    fullDescription: "Mock full description",
+    stack: "Mock Stack",
+    technologies: ["Mock", "Test", "Fake"],
+    yearsOfExperience: "<1 year",
+    creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
+    id: "2",
+  },
+  {
+    projectTitle: "Mock Project",
+    backupImage: "url",
+    shortDescription: "Mock short description",
+    fullDescription: "Mock full description",
+    stack: "Mock Stack",
+    technologies: ["Mock", "Test", "Fake"],
+    yearsOfExperience: "<1 year",
+    creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
+    id: "1",
+  },
+  {
+    projectTitle: "Mock Project",
+    backupImage: "url",
+    shortDescription: "Mock short description",
+    fullDescription: "Mock full description",
+    stack: "Mock Stack",
+    technologies: ["Mock", "Test", "Fake"],
+    yearsOfExperience: "<1 year",
+    creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
+    id: "2",
+  },
 ];
 
 describe("Given a Posts component", () => {
-  const posts$ = of([mockPosts]);
   const mockPostsService = {
-    nextPage: 2,
-    loadPosts: jest.fn(() => of({ posts$ })),
+    pageNumber: 2,
+    loadPosts: jest.fn(() => of({ mockPosts })),
     getPostsState: jest.fn().mockReturnValue(of(mockPosts)),
     checkPosts: jest.fn(),
   };
@@ -99,10 +194,10 @@ describe("Given a Posts component", () => {
 
       const nextButton = screen.getByRole("button", { name: nextPage });
       await userEvent.click(nextButton);
-      const previousButton = screen.queryByRole("button", {
+      const previousButton = screen.getByRole("button", {
         name: previousPage,
       });
-      await userEvent.click(previousButton!);
+      await userEvent.click(previousButton);
 
       expect(mockPostsService.loadPosts).toHaveBeenCalled();
     });
