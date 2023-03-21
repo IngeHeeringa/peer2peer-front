@@ -23,6 +23,7 @@ describe("Given a Post component", () => {
     technologies: ["testTechnology", "testTechnology2"],
     yearsOfExperience: "testExperience",
     creator: "Mock Creator",
+    createdAt: new Date("2024-05-25"),
     id: "1",
   };
 

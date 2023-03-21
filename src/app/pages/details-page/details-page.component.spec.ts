@@ -17,6 +17,7 @@ const mockPost = {
   technologies: ["Mock", "Test", "Fake"],
   yearsOfExperience: "<1 year",
   creator: "Mock Creator",
+  createdAt: new Date("2024-05-25"),
   id: "1",
 };
 

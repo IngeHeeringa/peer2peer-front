@@ -106,6 +106,7 @@ describe("Given a Posts Service", () => {
         technologies: ["Mock", "Test", "Fake"],
         yearsOfExperience: "<1 year",
         creator: "Mock Creator",
+        createdAt: new Date("2024-05-25"),
         id: "1",
       },
     };
@@ -148,6 +149,7 @@ describe("Given a Posts Service", () => {
         technologies: ["Mock", "Test", "Fake"],
         yearsOfExperience: "<1 year",
         creator: "Mock Creator",
+        createdAt: new Date("2024-05-25"),
         id: "1",
       },
     };
