@@ -22,7 +22,7 @@ import { loadPost } from "../../store/post/post.actions";
 export class PostsService {
   pageNumber!: number;
   posts!: Posts;
-  public postsUrl = `http://localhost:4000${environment.paths.posts}`;
+  public postsUrl = `${environment.apiUrl}${environment.paths.posts}`;
 
   constructor(
     @Inject(HttpClient) private readonly http: HttpClient,
