@@ -81,6 +81,7 @@ export class PostFormComponent {
     this.postsService.submitPost(formData).subscribe(async (data) => {
       this.uiService.hideLoading();
       this.uiService.showSuccessModal("Your post has been submitted");
+      this.uiService.redirectUser("");
     });
   }
 }

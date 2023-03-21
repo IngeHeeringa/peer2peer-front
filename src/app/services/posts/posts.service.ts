@@ -9,6 +9,7 @@ import { environment } from "../../../environments/environment";
 import {
   type ApiResponsePosts,
   type ApiResponsePost,
+  type Posts,
 } from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
 import { type CreatePostResponse } from "../../types";
@@ -19,6 +20,8 @@ import { loadPost } from "../../store/post/post.actions";
   providedIn: "root",
 })
 export class PostsService {
+  pageNumber!: number;
+  posts!: Posts;
   public postsUrl = `${environment.apiUrl}${environment.paths.posts}`;
 
   constructor(
@@ -28,9 +31,11 @@ export class PostsService {
     @Inject(TokenService) private readonly tokenService: TokenService
   ) {}
 
-  loadPosts() {
+  loadPosts(pageNumber: number) {
+    this.pageNumber = pageNumber;
+
     const posts$ = this.http
-      .get<ApiResponsePosts>(this.postsUrl)
+      .get<ApiResponsePosts>(`${this.postsUrl}?page=${pageNumber}`)
       .pipe(
         catchError((error) =>
           this.handleError(error as HttpErrorResponse, this.uiService)
