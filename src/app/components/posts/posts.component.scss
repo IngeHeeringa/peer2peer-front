@@ -11,6 +11,24 @@
   justify-content: center;
 }
 
+.pagination {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+  gap: 50px;
+
+  &__button {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: map-get(variables.$primary-color, "main");
+    background-color: map-get(variables.$accent-color, "main");
+  }
+}
+
 .no-posts {
   display: flex;
   align-items: center;

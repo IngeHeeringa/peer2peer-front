@@ -48,6 +48,7 @@ export class RegisterFormComponent {
     this.userService.register(registerData).subscribe(async (data) => {
       this.uiService.hideLoading();
       this.uiService.showSuccessModal("Your account has been created");
+      this.uiService.redirectUser("");
     });
   }
 }

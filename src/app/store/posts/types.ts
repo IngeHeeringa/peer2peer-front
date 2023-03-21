@@ -14,6 +14,7 @@ export type Posts = Post[];
 
 export interface ApiResponsePosts {
   posts: Posts;
+  totalPosts: number;
 }
 
 export interface ApiResponsePost {
