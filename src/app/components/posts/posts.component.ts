@@ -1,6 +1,5 @@
 import { Component, Inject } from "@angular/core";
 import { type Observable } from "rxjs";
-import { loadPosts } from "src/app/store/posts/posts.actions";
 import { PostsService } from "../../services/posts/posts.service";
 import { type Posts } from "../../store/posts/types";
 
