@@ -47,9 +47,14 @@ describe("Given a Posts Service", () => {
         posts: [],
       };
       const spy = jest.spyOn(store, "dispatch");
+      const pageNumber = 1;
 
-      postsService.loadPosts();
-      const req = httpMock.expectOne(`${postsService.postsUrl}`);
+      postsService.getPostsState();
+
+      postsService.loadPosts(pageNumber);
+      const req = httpMock.expectOne(
+        `${postsService.postsUrl}?page=${pageNumber}`
+      );
       req.flush(mockApiResponse);
 
       expect(spy).toHaveBeenCalledWith(
@@ -60,9 +65,12 @@ describe("Given a Posts Service", () => {
     });
 
     test("Then it should make a GET request to the posts endpoint", () => {
-      postsService.loadPosts();
+      const pageNumber = 1;
 
-      const req = httpMock.expectOne(`${postsService.postsUrl}`);
+      postsService.loadPosts(pageNumber);
+      const req = httpMock.expectOne(
+        `${postsService.postsUrl}?page=${pageNumber}`
+      );
       expect(req.request.method).toEqual("GET");
     });
   });
@@ -73,9 +81,12 @@ describe("Given a Posts Service", () => {
 
       const spy = jest.spyOn(postsService, "handleError");
 
-      postsService.loadPosts();
+      const pageNumber = 1;
 
-      const req = httpMock.expectOne(`${postsService.postsUrl}`);
+      postsService.loadPosts(pageNumber);
+      const req = httpMock.expectOne(
+        `${postsService.postsUrl}?page=${pageNumber}`
+      );
       req.error(errorEvent);
 
       expect(spy).toHaveBeenCalled();
@@ -100,6 +111,8 @@ describe("Given a Posts Service", () => {
     };
     test("Then it should dispatch a loadPost action with the post payload", () => {
       const spy = jest.spyOn(store, "dispatch");
+
+      postsService.getPostState();
 
       postsService.loadPostById(mockResponse.post.id);
       const req = httpMock.expectOne(
