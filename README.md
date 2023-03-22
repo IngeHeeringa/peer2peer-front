@@ -21,7 +21,7 @@ The Material Angular library provides a sleek and professional look for the UI, 
 
 On the backend, I use Node.js with Express and MongoDB to provide a scalable and efficient infrastructure for storing and processing data. ([Click here to see the back-end code.](https://github.com/isdi-coders-2023/Inge-Heeringa-Final-Project-back-202301-bcn))
 
-My testing suite includes Jest, Supertest and Angular Testing Library to ensure it is functioning correctly and to instill confidence in my users that they can use the application with minimal risk of encountering bugs or errors.
+My testing suite includes Jest, Supertest and Angular Testing Library to ensure the application is functioning correctly and to instill confidence in my users that they can use the application with minimal risk of encountering bugs or errors.
 
 ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -38,22 +38,19 @@ My testing suite includes Jest, Supertest and Angular Testing Library to ensure 
 
 ### Posting requests
 
-One of the key features of peer2peer is the ability for users to post requests for pair programming on certain features of their projects.
+One of the key features of peer2peer is the ability for users to post requests for pair programming on certain features of their projects. Users introduce their project name and a brief description, and list the stack and technologies they are using. By indicating their level of experience, they guide other users to identify the best candidates for collaboration.
 
-Users introduce their project name and a brief description, and list the stack and technologies they are using.
-
-By indicating their level of experience, they guide other users to identify the best candidates for collaboration.
-
-<img src="images/new-post.png" alt="Screenshot of submit form" width="value" height="400">
-<img src="images/post.png" alt="Screenshot of post" width="value" height="400">
-<img src="images/detail.png" alt="Screenshot of post detail" width="value" height="400">
+<p align="middle">
+<img src="images/new-post.png" alt="Screenshot of submit form" width="value" height="400"> <img src="images/post.png" alt="Screenshot of post" width="value" height="400"> <img src="images/detail.png" alt="Screenshot of post detail" width="value" height="400">
+</p>
 
 ### User authentication
 
 I used JSON Web Token (JWT) for secure user authentication. By implementing JWT, my application ensures that sensitive data is stored safely and that only authorized users can access protected routes and features.
 
-<img src="images/login.png" alt="Screenshot of login form" width="value" height="400">
-<img src="images/sign-up.png" alt="Screenshot of register form" width="value" height="400">
+<p align="middle">
+<img src="images/login.png" alt="Screenshot of login form" width="value" height="400"> <img src="images/sign-up.png" alt="Screenshot of register form" width="value" height="400">
+</p>
 
 ### Image storage and optimization
 
@@ -66,20 +63,20 @@ One key area I focused on during development was performance, specifically optim
 - Schedule pair programming sessions in a shared calendar
 - Redirect users to their platform of choice to connect and hold their pair programming session
 
-# Getting started
+## Getting started
 
 To get started using peer2peer, you need to install:
 
 - Node.js
 - All the needed dependencies using <code>npm install</code> after cloning the repository
 
-## Running the application
+### Running the application
 
 To run the application, use the following command:
 
 <code>npm start</code>
 
-## Testing
+### Testing
 
 To run the tests, use the following command:
 
