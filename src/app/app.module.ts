@@ -5,46 +5,34 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { UserModule } from "./store/user/user.module";
-import { LoginFormComponent } from "./components/login-form/login-form.component";
 import { MaterialModule } from "./material/material.module";
-import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { NavigationComponent } from "./components/navigation/navigation.component";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { LocationStrategy, PathLocationStrategy } from "@angular/common";
 import { UiModule } from "./store/ui/ui.module";
-import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
 import { LoadingComponent } from "./components/loading/loading.component";
-import { RegisterFormComponent } from "./components/register-form/register-form.component";
-import { RegisterPageComponent } from "./pages/register-page/register-page.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { PostsModule } from "./store/posts/posts.module";
 import { PostComponent } from "./components/post/post.component";
 import { PostsComponent } from "./components/posts/posts.component";
-import { PostFormComponent } from "./components/post-form/post-form.component";
-import { SubmitPageComponent } from "./pages/submit-page/submit-page.component";
-import { DetailsPageComponent } from "./pages/details-page/details-page.component";
 import { PostModule } from "./store/post/post.module";
+import { LoginModule } from "./pages/login-page/login.module";
+import { RegisterModule } from "./pages/register-page/register.module";
+import { SubmitModule } from "./pages/submit-page/submit.module";
+import { DetailsModule } from "./pages/details-page/details.module";
+import { NotFoundModule } from "./pages/not-found-page/not-found.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginFormComponent,
-    LoginPageComponent,
     NavigationComponent,
     HomePageComponent,
-    NotFoundPageComponent,
     LoadingComponent,
-    RegisterFormComponent,
-    RegisterPageComponent,
     HeaderComponent,
     PostComponent,
     PostsComponent,
-    PostFormComponent,
-    SubmitPageComponent,
-    DetailsPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,11 +45,15 @@ import { PostModule } from "./store/post/post.module";
     }),
     MaterialModule,
     UserModule,
-    ReactiveFormsModule,
     HttpClientModule,
     UiModule,
     PostsModule,
     PostModule,
+    LoginModule,
+    RegisterModule,
+    SubmitModule,
+    DetailsModule,
+    NotFoundModule,
   ],
   providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
   bootstrap: [AppComponent],
