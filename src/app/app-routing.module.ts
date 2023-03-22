@@ -1,33 +1,36 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, type Routes } from "@angular/router";
 import { AuthGuard } from "./guards/auth.guard";
-import { DetailsPageComponent } from "./pages/details-page/details-page.component";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
-import { LoginPageComponent } from "./pages/login-page/login-page.component";
-import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
-import { RegisterPageComponent } from "./pages/register-page/register-page.component";
-import { SubmitPageComponent } from "./pages/submit-page/submit-page.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
   {
-    path: "users/login",
-    component: LoginPageComponent,
-  },
-  {
     path: "users/register",
-    component: RegisterPageComponent,
-  },
-  {
-    path: "posts/details/:id",
-    component: DetailsPageComponent,
+    loadChildren: async () =>
+      (await import("./pages/register-page/register.module")).RegisterModule,
   },
   {
     path: "posts/new-post",
-    component: SubmitPageComponent,
+    loadChildren: async () =>
+      (await import("./pages/submit-page/submit.module")).SubmitModule,
     canActivate: [AuthGuard],
   },
-  { path: "**", component: NotFoundPageComponent },
+  {
+    path: "users/login",
+    loadChildren: async () =>
+      (await import("./pages/login-page/login.module")).LoginModule,
+  },
+  {
+    path: "posts/details/:id",
+    loadChildren: async () =>
+      (await import("./pages/details-page/details.module")).DetailsModule,
+  },
+  {
+    path: "**",
+    loadChildren: async () =>
+      (await import("./pages/not-found-page/not-found.module")).NotFoundModule,
+  },
 ];
 
 @NgModule({
