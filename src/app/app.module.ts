@@ -18,11 +18,6 @@ import { PostsModule } from "./store/posts/posts.module";
 import { PostComponent } from "./components/post/post.component";
 import { PostsComponent } from "./components/posts/posts.component";
 import { PostModule } from "./store/post/post.module";
-import { LoginModule } from "./pages/login-page/login.module";
-import { RegisterModule } from "./pages/register-page/register.module";
-import { SubmitModule } from "./pages/submit-page/submit.module";
-import { DetailsModule } from "./pages/details-page/details.module";
-import { NotFoundModule } from "./pages/not-found-page/not-found.module";
 
 @NgModule({
   declarations: [
@@ -49,11 +44,6 @@ import { NotFoundModule } from "./pages/not-found-page/not-found.module";
     UiModule,
     PostsModule,
     PostModule,
-    LoginModule,
-    RegisterModule,
-    SubmitModule,
-    DetailsModule,
-    NotFoundModule,
   ],
   providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
   bootstrap: [AppComponent],
