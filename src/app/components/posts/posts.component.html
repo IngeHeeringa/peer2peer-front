@@ -5,7 +5,8 @@
   <button *ngIf="nextPage > 1" (click)="goToPreviousPage()" class="pagination__button" aria-label="Previous page">
     <mat-icon>chevron_left</mat-icon>
   </button>
-  <button *ngIf="posts.length > 0" (click)="goToNextPage()" class="pagination__button" aria-label="Next page">
+  <button *ngIf="posts.length > 0 && posts.length > 8" (click)="goToNextPage()" class="pagination__button"
+    aria-label="Next page">
     <mat-icon>chevron_right</mat-icon>
   </button>
 </div>
