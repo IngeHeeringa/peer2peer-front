@@ -72,7 +72,7 @@ describe("Given a User Service", () => {
 
       const spy = jest.spyOn(userService, "handleError");
 
-      const errorEvent = new ErrorEvent("error");
+      const errorEvent = new ProgressEvent("error");
 
       userService.getToken(credentials).subscribe({
         error() {
