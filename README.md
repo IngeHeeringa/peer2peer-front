@@ -4,9 +4,9 @@ Peer2peer is a platform where programmers can connect and organize pair-programm
 
 <img src="images/hero-desktop.png" alt="Screenshot of the hero section" width="value" width="400">
 
-[Click here to see the live demo](https://inge-heeringa-final-project-2023-bcn.netlify.app/)
+[Click here to see the live demo](https://peer2peer.vercel.app/)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/61b07391-6314-4376-a060-11b32ed7af83/deploy-status)](https://app.netlify.com/sites/inge-heeringa-final-project-2023-bcn/deploys)
+![Vercel](https://vercelbadge.vercel.app/api/ingeheeringa/peer2peer-front)
 
 #### SonarCloud Metrics
 
@@ -19,7 +19,7 @@ This web application is written in TypeScript and built with the MEAN stack. It 
 
 The Material Angular library provides a sleek and professional look for the UI, while Sass is used for CSS preprocessing.
 
-On the backend, I use Node.js with Express and MongoDB to provide a scalable and efficient infrastructure for storing and processing data. ([Click here to see the back-end code.](https://github.com/isdi-coders-2023/Inge-Heeringa-Final-Project-back-202301-bcn))
+On the backend, I use Node.js with Express and MongoDB to provide a scalable and efficient infrastructure for storing and processing data. ([Click here to see the back-end code.](https://github.com/IngeHeeringa/peer2peer-back))
 
 My testing suite includes Jest, Supertest and Angular Testing Library to ensure the application is functioning correctly and to instill confidence in my users that they can use the application with minimal risk of encountering bugs or errors.
 
