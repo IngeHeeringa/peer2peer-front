@@ -51,6 +51,14 @@ export class PostFormComponent {
     stack: ["", [Validators.required]],
     technologies: [[], [Validators.required, Validators.min(1)]],
     yearsOfExperience: ["<1 year", [Validators.required]],
+    codeRepositoryLink: [
+      "",
+      [
+        Validators.pattern(
+          "^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?"
+        ),
+      ],
+    ],
     image: [null],
   });
 

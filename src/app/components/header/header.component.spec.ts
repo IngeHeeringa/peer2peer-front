@@ -6,7 +6,7 @@ import "@testing-library/jest-dom";
 import { UserService } from "../../services/user/user.service";
 import { selectIsLogged } from "../../store/user/user.reducer";
 import { HeaderComponent } from "./header.component";
-import { type Observable, of } from "rxjs";
+import { of } from "rxjs";
 import userEvent from "@testing-library/user-event";
 import { NavigationComponent } from "../navigation/navigation.component";
 import { AppModule } from "../../app.module";

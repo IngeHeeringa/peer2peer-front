@@ -24,7 +24,6 @@
 }
 
 .form-column-wrapper {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -45,6 +44,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    gap: 20px;
   }
 
   &__field,
@@ -76,9 +76,9 @@ mat-radio-group {
 @media (min-width: 768px) {
   .post-form {
     &__controls {
+      align-items: flex-start;
       gap: 100px;
       flex-direction: row;
-      align-items: stretch;
     }
 
     &__submit-button {

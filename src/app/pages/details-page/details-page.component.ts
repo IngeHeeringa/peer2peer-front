@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { type Observable } from "rxjs";
-import { type Post } from "src/app/store/posts/types";
+import { type Post } from "../../store/post/types";
 import { PostsService } from "../../services/posts/posts.service";
 import { UiService } from "../../services/ui/ui.service";
 

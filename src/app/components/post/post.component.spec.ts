@@ -22,6 +22,7 @@ describe("Given a Post component", () => {
     stack: "testStack",
     technologies: ["testTechnology", "testTechnology2"],
     yearsOfExperience: "testExperience",
+    codeRepositoryLink: "https://github.com",
     creator: "Mock Creator",
     createdAt: new Date("2024-05-25"),
     id: "1",

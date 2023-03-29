@@ -1,6 +1,6 @@
-import { type Post } from "../posts/types";
 import { loadPost } from "./post.actions";
 import { reducer } from "./post.reducer";
+import { type Post } from "./types";
 
 const post: Post = {
   projectTitle: "Mock Project",
@@ -10,6 +10,7 @@ const post: Post = {
   stack: "Mock Stack",
   technologies: ["Mock", "Test", "Fake"],
   yearsOfExperience: "<1 year",
+  codeRepositoryLink: "https://github.com",
   creator: "Mock Creator",
   createdAt: new Date("2024-05-25"),
   id: "1",
@@ -26,6 +27,7 @@ describe("Given a Post Reducer function", () => {
         stack: "",
         technologies: [],
         yearsOfExperience: "",
+        codeRepositoryLink: "https://github.com",
         creator: "",
         createdAt: new Date("2024-05-25"),
         id: "",
@@ -38,6 +40,7 @@ describe("Given a Post Reducer function", () => {
         stack: "Mock Stack",
         technologies: ["Mock", "Test", "Fake"],
         yearsOfExperience: "<1 year",
+        codeRepositoryLink: "https://github.com",
         creator: "Mock Creator",
         createdAt: new Date("2024-05-25"),
         id: "1",

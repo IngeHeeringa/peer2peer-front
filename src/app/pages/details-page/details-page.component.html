@@ -18,6 +18,13 @@
       <span class="info__label">Experience</span>
       <span class="info__data">{{post.yearsOfExperience}}</span>
     </div>
+    <div class="post-detail__info info">
+      <span class="info__label">Code repository</span>
+      <span class="info__data" *ngIf="post.codeRepositoryLink; else noLink">
+        <a href="{{ post.codeRepositoryLink }}">{{ post.codeRepositoryLink }}</a>
+      </span>
+      <ng-template class="info__data" #noLink>-</ng-template>
+    </div>
     <p class="info__description">{{post.fullDescription}}</p>
     <div class="post-detail__technologies technologies">
       <span *ngFor="let technology of post.technologies"

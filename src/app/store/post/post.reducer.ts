@@ -1,5 +1,5 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
-import { type Post } from "../posts/types";
+import { type Post } from "../post/types";
 import { loadPost } from "./post.actions";
 
 export const initialState: Post = {
@@ -10,6 +10,7 @@ export const initialState: Post = {
   stack: "",
   technologies: [],
   yearsOfExperience: "",
+  codeRepositoryLink: "",
   creator: "",
   createdAt: new Date("2024-05-25"),
   id: "",
