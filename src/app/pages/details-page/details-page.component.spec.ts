@@ -5,8 +5,11 @@ import { provideMockStore } from "@ngrx/store/testing";
 import { render, screen } from "@testing-library/angular";
 import "@testing-library/jest-dom";
 import { of } from "rxjs";
+import { UserService } from "../../services/user/user.service";
+import { selectIsLogged } from "../../store/user/user.reducer";
 import { PostsService } from "../../services/posts/posts.service";
 import { DetailsPageComponent } from "./details-page.component";
+import userEvent from "@testing-library/user-event/";
 
 const mockPost = {
   projectTitle: "Mock Project",
@@ -21,19 +24,32 @@ const mockPost = {
   id: "1",
 };
 
+const mockUserServiceTrue = {
+  getIsLogged: jest.fn().mockReturnValue(of(true)),
+  checkUser: jest.fn().mockReturnValue({ username: "Mock Creator" }),
+};
+const mockUserServiceFalse = {
+  getIsLogged: jest.fn().mockReturnValue(of(false)),
+  checkUser: jest.fn().mockImplementation(() => {
+    throw new Error("Missing token");
+  }),
+};
+
 describe("Given a DetailsPageComponent", () => {
+  const post$ = of(mockPost);
+  const mockPostsService = {
+    loadPostById: jest.fn(() => of({ post$ })),
+    getPostState: jest.fn().mockReturnValue(post$),
+    deletePostById: jest.fn(),
+  };
   describe("When rendered", () => {
-    const post$ = of(mockPost);
-    const mockPostsService = {
-      loadPostById: jest.fn(() => of({ post$ })),
-      getPostState: jest.fn().mockReturnValue(post$),
-    };
     const renderComponent = async () => {
       await render(DetailsPageComponent, {
         imports: [HttpClientTestingModule, MatSnackBarModule, MatIconModule],
         providers: [
           provideMockStore(),
           { provide: PostsService, useValue: mockPostsService },
+          { provide: UserService, useValue: mockUserServiceTrue },
         ],
       });
     };
@@ -64,6 +80,83 @@ describe("Given a DetailsPageComponent", () => {
       const image = screen.getByRole("img", { name: altText });
 
       expect(image).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user is logged and the post is theirs", () => {
+    const renderComponent = async () => {
+      await render(DetailsPageComponent, {
+        imports: [HttpClientTestingModule, MatSnackBarModule, MatIconModule],
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectIsLogged, value: true }],
+          }),
+          { provide: PostsService, useValue: mockPostsService },
+          { provide: UserService, useValue: mockUserServiceTrue },
+        ],
+      });
+    };
+
+    test("Then it should show a button to delete the post", async () => {
+      const buttonText = /delete post/i;
+
+      await renderComponent();
+
+      const deleteButton = screen.getByRole("button", { name: buttonText });
+
+      expect(deleteButton).toBeInTheDocument();
+    });
+  });
+
+  describe("When the user is logged and the post is not theirs", () => {
+    const renderComponent = async () => {
+      await render(DetailsPageComponent, {
+        imports: [HttpClientTestingModule, MatSnackBarModule, MatIconModule],
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectIsLogged, value: false }],
+          }),
+          { provide: PostsService, useValue: mockPostsService },
+          { provide: UserService, useValue: mockUserServiceFalse },
+        ],
+      });
+    };
+
+    test("Then it should not show a button to delete the post", async () => {
+      const buttonText = /delete post/i;
+
+      await renderComponent();
+
+      const deleteButton = screen.queryByRole("button", { name: buttonText });
+
+      expect(deleteButton).not.toBeInTheDocument();
+    });
+  });
+
+  describe("When the user clicks on the delete button", () => {
+    const renderComponent = async () => {
+      await render(DetailsPageComponent, {
+        imports: [HttpClientTestingModule, MatSnackBarModule, MatIconModule],
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectIsLogged, value: true }],
+          }),
+          { provide: PostsService, useValue: mockPostsService },
+          { provide: UserService, useValue: mockUserServiceTrue },
+        ],
+      });
+    };
+
+    test("Then the postsService's deletePostById method should be invoked", async () => {
+      const buttonText = /delete post/i;
+
+      await renderComponent();
+
+      const deleteButton = screen.getByRole("button", { name: buttonText });
+
+      await userEvent.click(deleteButton);
+
+      expect(mockPostsService.deletePostById).toHaveBeenCalled();
     });
   });
 });
