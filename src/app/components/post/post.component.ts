@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from "@angular/core";
 import { UserService } from "../../services/user/user.service";
 import { PostsService } from "../../services/posts/posts.service";
-import { type Post } from "../../store/posts/types";
+import { type Post } from "../../store/post/types";
 
 @Component({
   selector: "app-post",

@@ -37,8 +37,6 @@
         </mat-select>
         <mat-error *ngIf="postForm.controls['stack'].hasError('required')">Stack is required</mat-error>
       </mat-form-field>
-    </div>
-    <div class="form-column-wrapper">
       <mat-form-field class="post-form__field" appearance="outline" color="accent">
         <mat-label>Technologies</mat-label>
         <mat-select formControlName="technologies" multiple>
@@ -47,6 +45,8 @@
         <mat-error *ngIf="postForm.controls['technologies'].hasError('required')">Choose at least one
           technology</mat-error>
       </mat-form-field>
+    </div>
+    <div class="form-column-wrapper">
       <label class="post-form__label-experience">Experience</label>
       <mat-radio-group aria-label="Years of experience" class="post-form__experience"
         formControlName="yearsOfExperience">
@@ -60,6 +60,14 @@
         <mat-label>Upload an image</mat-label>
         <ngx-mat-file-input name="upload" formControlName="image" placeholder=""></ngx-mat-file-input>
         <mat-icon matSuffix>add_photo_alternate</mat-icon>
+      </mat-form-field>
+      <mat-form-field class="post-form__field" appearance="outline" color="accent">
+        <mat-label class="post-form__label" for="codeRepositoryLink" aria-label="codeRepositoryLink">Code
+          repository</mat-label>
+        <input class="post-form__input" type="text" id="codeRepositoryLink" matInput
+          formControlName="codeRepositoryLink">
+        <mat-error *ngIf="postForm.controls['codeRepositoryLink'].hasError('pattern')">Please enter a valid
+          URL</mat-error>
       </mat-form-field>
     </div>
   </div>

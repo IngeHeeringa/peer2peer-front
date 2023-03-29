@@ -10,10 +10,10 @@ Peer2peer is a platform where programmers can connect and organize pair-programm
 
 #### SonarCloud Metrics
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2023_Inge-Heeringa-Final-Project-front-202301-bcn&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2023_Inge-Heeringa-Final-Project-front-202301-bcn)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2023_Inge-Heeringa-Final-Project-front-202301-bcn&metric=coverage)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2023_Inge-Heeringa-Final-Project-front-202301-bcn)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2023_Inge-Heeringa-Final-Project-front-202301-bcn&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2023_Inge-Heeringa-Final-Project-front-202301-bcn)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2023_Inge-Heeringa-Final-Project-front-202301-bcn&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2023_Inge-Heeringa-Final-Project-front-202301-bcn)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IngeHeeringa_peer2peer-front&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=IngeHeeringa_peer2peer-front)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=IngeHeeringa_peer2peer-front&metric=coverage)](https://sonarcloud.io/summary/new_code?id=IngeHeeringa_peer2peer-front)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=IngeHeeringa_peer2peer-front&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=IngeHeeringa_peer2peer-front)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=IngeHeeringa_peer2peer-front&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=IngeHeeringa_peer2peer-front)
 
 This web application is written in TypeScript and built with the MEAN stack. It relies on Angular on the front end, combined with NgRx to ensure a consistent state across various components.
 
