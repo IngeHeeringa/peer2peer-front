@@ -1,6 +1,6 @@
 <main class="post-detail" *ngIf="post">
   <h1 class="post-detail__project-title">{{post.projectTitle}}</h1>
-  <img *ngIf="post.backupImage" ngSrc={{post.backupImage}} alt={{post.projectTitle}} width="465" height="383"
+  <img *ngIf="post.backupImage" src={{post.backupImage}} alt={{post.projectTitle}} width="465" height="383"
     class="post-detail__image" priority>
   <span class="post-detail__creator">Posted by <span
       class="post-detail__creator post-detail__creator--username">@{{post.creator}}</span> on {{post.createdAt | date:
