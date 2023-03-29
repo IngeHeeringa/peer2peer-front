@@ -85,6 +85,10 @@
   }
 }
 
+.delete-button {
+  padding: 25px 10px;
+}
+
 @media (min-width: 768px) {
   .post-detail {
     &__image {
@@ -104,5 +108,10 @@
       width: 55%;
       align-self: flex-end;
     }
+  }
+
+  .delete-button {
+    width: 200px;
+    align-self: flex-end;
   }
 }

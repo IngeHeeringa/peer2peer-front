@@ -30,5 +30,8 @@
       <span *ngFor="let technology of post.technologies"
         [className]="'technologies__technology' + ' ' + technology.replace(' ' && '.', '').replace('#', '-sharp').replace('++', '-plus-plus').toLowerCase()">{{technology}}</span>
     </div>
+    <button mat-flat-button color="accent" class="delete-button" (click)="deletePost()"
+      *ngIf="this.allowAction()">Delete
+      post</button>
   </div>
 </main>
