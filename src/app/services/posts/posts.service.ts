@@ -6,15 +6,12 @@ import { deletePostById, loadPosts } from "../../store/posts/posts.actions";
 import { selectPostsState } from "../../store/posts/posts.reducer";
 import { selectPostState } from "../../store/post/post.reducer";
 import { environment } from "../../../environments/environment";
-import {
-  type ApiResponsePosts,
-  type ApiResponsePost,
-  type Posts,
-} from "../../store/posts/types";
+import { type ApiResponsePosts, type Posts } from "../../store/posts/types";
 import { UiService } from "../ui/ui.service";
 import { type CreatePostResponse } from "../../types";
 import { TokenService } from "../token/token.service";
 import { loadPost } from "../../store/post/post.actions";
+import { type ApiResponsePost } from "../../store/post/types";
 
 @Injectable({
   providedIn: "root",
